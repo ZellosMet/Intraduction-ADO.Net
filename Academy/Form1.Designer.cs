@@ -33,6 +33,8 @@
 			this.dgv_SudentsList = new System.Windows.Forms.DataGridView();
 			this.btn_AddStudents = new System.Windows.Forms.Button();
 			this.btn_Refresh = new System.Windows.Forms.Button();
+			this.btn_AddGroups = new System.Windows.Forms.Button();
+			this.btn_AddShedules = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_SudentsList)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -92,11 +94,33 @@
 			this.btn_Refresh.UseVisualStyleBackColor = true;
 			this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
 			// 
+			// btn_AddGroups
+			// 
+			this.btn_AddGroups.Location = new System.Drawing.Point(193, 22);
+			this.btn_AddGroups.Name = "btn_AddGroups";
+			this.btn_AddGroups.Size = new System.Drawing.Size(143, 29);
+			this.btn_AddGroups.TabIndex = 5;
+			this.btn_AddGroups.Text = "Добавить группу";
+			this.btn_AddGroups.UseVisualStyleBackColor = true;
+			this.btn_AddGroups.Click += new System.EventHandler(this.btn_AddGroups_Click);
+			// 
+			// btn_AddShedules
+			// 
+			this.btn_AddShedules.Location = new System.Drawing.Point(355, 22);
+			this.btn_AddShedules.Name = "btn_AddShedules";
+			this.btn_AddShedules.Size = new System.Drawing.Size(171, 29);
+			this.btn_AddShedules.TabIndex = 6;
+			this.btn_AddShedules.Text = "Добавить расписание";
+			this.btn_AddShedules.UseVisualStyleBackColor = true;
+			this.btn_AddShedules.Click += new System.EventHandler(this.btn_AddShedules_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 498);
+			this.Controls.Add(this.btn_AddShedules);
+			this.Controls.Add(this.btn_AddGroups);
 			this.Controls.Add(this.btn_Refresh);
 			this.Controls.Add(this.btn_AddStudents);
 			this.Controls.Add(this.dgv_SudentsList);
@@ -117,6 +141,8 @@
 		private System.Windows.Forms.DataGridView dgv_SudentsList;
 		private System.Windows.Forms.Button btn_AddStudents;
 		private System.Windows.Forms.Button btn_Refresh;
+		private System.Windows.Forms.Button btn_AddGroups;
+		private System.Windows.Forms.Button btn_AddShedules;
 	}
 }
 

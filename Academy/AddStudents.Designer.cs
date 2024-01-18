@@ -74,7 +74,6 @@
 			this.tb_MiddleName.Name = "tb_MiddleName";
 			this.tb_MiddleName.Size = new System.Drawing.Size(552, 22);
 			this.tb_MiddleName.TabIndex = 6;
-			this.tb_MiddleName.TextChanged += new System.EventHandler(this.tb_MiddleName_TextChanged);
 			// 
 			// tb_LastName
 			// 

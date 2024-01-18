@@ -23,8 +23,8 @@ namespace Academy
 		{
 			InitializeComponent();
 			cb_CurrentGroup.DropDownStyle = ComboBoxStyle.DropDownList;
-			//connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
-			connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
+			connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
+			//connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
 			connection = new SqlConnection(connection_string);
 			LoadTablesToComboBox();
 		}
@@ -65,16 +65,26 @@ namespace Academy
 
 			connection.Close();
 		}
-
-		private void btn_AddStudents_Click(object sender, EventArgs e)
-		{
-			AddStudents add_students = new AddStudents(connection);
-			add_students.Show();
-		}
-
 		private void btn_Refresh_Click(object sender, EventArgs e)
 		{
 			cb_CurrentGroup_SelectedIndexChanged(sender, e);
+		}
+
+		private void btn_AddStudents_Click(object sender, EventArgs e)
+		{
+			AddStudents add_students = new AddStudents(connection, connection_string);
+			add_students.Show();
+		}
+		private void btn_AddGroups_Click(object sender, EventArgs e)
+		{
+			AddGroups add_groups = new AddGroups(connection, connection_string);
+			add_groups.Show();
+		}
+
+		private void btn_AddShedules_Click(object sender, EventArgs e)
+		{
+			AddShedules add_shedules = new AddShedules(connection, connection_string);
+			add_shedules.Show();
 		}
 	}
 }
