@@ -37,7 +37,9 @@
 			this.l_DisciplinesName = new System.Windows.Forms.Label();
 			this.l_TeacherName = new System.Windows.Forms.Label();
 			this.l_StartDate = new System.Windows.Forms.Label();
-			this.l_AddResult = new System.Windows.Forms.Label();
+			this.tb_Time = new System.Windows.Forms.TextBox();
+			this.l_Time = new System.Windows.Forms.Label();
+			this.l_Result = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// cb_Groups
@@ -48,7 +50,7 @@
 			this.cb_Groups.FormattingEnabled = true;
 			this.cb_Groups.Location = new System.Drawing.Point(13, 36);
 			this.cb_Groups.Name = "cb_Groups";
-			this.cb_Groups.Size = new System.Drawing.Size(426, 24);
+			this.cb_Groups.Size = new System.Drawing.Size(524, 24);
 			this.cb_Groups.TabIndex = 0;
 			// 
 			// cb_Disciplines
@@ -59,7 +61,7 @@
 			this.cb_Disciplines.FormattingEnabled = true;
 			this.cb_Disciplines.Location = new System.Drawing.Point(13, 87);
 			this.cb_Disciplines.Name = "cb_Disciplines";
-			this.cb_Disciplines.Size = new System.Drawing.Size(426, 24);
+			this.cb_Disciplines.Size = new System.Drawing.Size(524, 24);
 			this.cb_Disciplines.TabIndex = 1;
 			// 
 			// cb_Teachers
@@ -70,7 +72,7 @@
 			this.cb_Teachers.FormattingEnabled = true;
 			this.cb_Teachers.Location = new System.Drawing.Point(13, 132);
 			this.cb_Teachers.Name = "cb_Teachers";
-			this.cb_Teachers.Size = new System.Drawing.Size(426, 24);
+			this.cb_Teachers.Size = new System.Drawing.Size(524, 24);
 			this.cb_Teachers.TabIndex = 2;
 			// 
 			// dtp_StartDate
@@ -80,17 +82,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dtp_StartDate.Location = new System.Drawing.Point(13, 182);
 			this.dtp_StartDate.Name = "dtp_StartDate";
-			this.dtp_StartDate.Size = new System.Drawing.Size(426, 22);
+			this.dtp_StartDate.Size = new System.Drawing.Size(524, 22);
 			this.dtp_StartDate.TabIndex = 3;
 			// 
 			// btn_AddSchedule
 			// 
-			this.btn_AddSchedule.Location = new System.Drawing.Point(13, 243);
+			this.btn_AddSchedule.Location = new System.Drawing.Point(13, 290);
 			this.btn_AddSchedule.Name = "btn_AddSchedule";
-			this.btn_AddSchedule.Size = new System.Drawing.Size(166, 23);
+			this.btn_AddSchedule.Size = new System.Drawing.Size(172, 32);
 			this.btn_AddSchedule.TabIndex = 4;
 			this.btn_AddSchedule.Text = "Добавить расписание";
 			this.btn_AddSchedule.UseVisualStyleBackColor = true;
+			this.btn_AddSchedule.Click += new System.EventHandler(this.btn_AddSchedule_Click);
 			// 
 			// l_GroupName
 			// 
@@ -128,20 +131,42 @@
 			this.l_StartDate.TabIndex = 8;
 			this.l_StartDate.Text = "Начало расписания";
 			// 
-			// l_AddResult
+			// tb_Time
 			// 
-			this.l_AddResult.AutoSize = true;
-			this.l_AddResult.Location = new System.Drawing.Point(196, 243);
-			this.l_AddResult.Name = "l_AddResult";
-			this.l_AddResult.Size = new System.Drawing.Size(0, 16);
-			this.l_AddResult.TabIndex = 9;
+			this.tb_Time.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tb_Time.Location = new System.Drawing.Point(12, 236);
+			this.tb_Time.Name = "tb_Time";
+			this.tb_Time.Size = new System.Drawing.Size(525, 22);
+			this.tb_Time.TabIndex = 10;
+			this.tb_Time.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_Time_KeyPress);
+			// 
+			// l_Time
+			// 
+			this.l_Time.AutoSize = true;
+			this.l_Time.Location = new System.Drawing.Point(12, 214);
+			this.l_Time.Name = "l_Time";
+			this.l_Time.Size = new System.Drawing.Size(48, 16);
+			this.l_Time.TabIndex = 11;
+			this.l_Time.Text = "Время";
+			// 
+			// l_Result
+			// 
+			this.l_Result.AutoSize = true;
+			this.l_Result.Location = new System.Drawing.Point(207, 306);
+			this.l_Result.Name = "l_Result";
+			this.l_Result.Size = new System.Drawing.Size(0, 16);
+			this.l_Result.TabIndex = 12;
 			// 
 			// AddShedules
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(447, 276);
-			this.Controls.Add(this.l_AddResult);
+			this.ClientSize = new System.Drawing.Size(545, 333);
+			this.Controls.Add(this.l_Result);
+			this.Controls.Add(this.l_Time);
+			this.Controls.Add(this.tb_Time);
 			this.Controls.Add(this.l_StartDate);
 			this.Controls.Add(this.l_TeacherName);
 			this.Controls.Add(this.l_DisciplinesName);
@@ -169,6 +194,8 @@
 		private System.Windows.Forms.Label l_DisciplinesName;
 		private System.Windows.Forms.Label l_TeacherName;
 		private System.Windows.Forms.Label l_StartDate;
-		private System.Windows.Forms.Label l_AddResult;
+		private System.Windows.Forms.TextBox tb_Time;
+		private System.Windows.Forms.Label l_Time;
+		private System.Windows.Forms.Label l_Result;
 	}
 }

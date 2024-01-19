@@ -23,8 +23,8 @@ namespace Academy
 		{
 			InitializeComponent();
 			cb_CurrentGroup.DropDownStyle = ComboBoxStyle.DropDownList;
-			connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
-			//connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
+			//connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
+			connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
 			connection = new SqlConnection(connection_string);
 			LoadTablesToComboBox();
 		}
@@ -43,7 +43,7 @@ namespace Academy
 		private void cb_CurrentGroup_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string commandLine = $@"
-			SELECT[Имя] = first_name, [Фамилия] = last_name, [Отчество] = middle_name
+			SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name
 			FROM Groups, Students
 			WHERE Groups.group_name = '{cb_CurrentGroup.SelectedItem}'
 			AND Groups.group_id = Students.[group]";			
@@ -67,24 +67,45 @@ namespace Academy
 		}
 		private void btn_Refresh_Click(object sender, EventArgs e)
 		{
+			if (dgv_SudentsList.RowCount == 0) return;
 			cb_CurrentGroup_SelectedIndexChanged(sender, e);
 		}
 
 		private void btn_AddStudents_Click(object sender, EventArgs e)
 		{
 			AddStudents add_students = new AddStudents(connection, connection_string);
-			add_students.Show();
+			add_students.ShowDialog();
 		}
 		private void btn_AddGroups_Click(object sender, EventArgs e)
 		{
 			AddGroups add_groups = new AddGroups(connection, connection_string);
-			add_groups.Show();
+			add_groups.ShowDialog();
 		}
 
 		private void btn_AddShedules_Click(object sender, EventArgs e)
 		{
 			AddShedules add_shedules = new AddShedules(connection, connection_string);
-			add_shedules.Show();
+			add_shedules.ShowDialog();
+		}
+
+		private void tb_Search_TextChanged(object sender, EventArgs e)
+		{
+			(dgv_SudentsList.DataSource as DataTable).DefaultView.RowFilter = $"Фамилия LIKE '%{tb_Search.Text}%'";
+		}
+
+		private void dgv_SudentsList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (dgv_SudentsList.RowCount == 0) return;
+			int index = dgv_SudentsList.CurrentCell.RowIndex;
+			DataGridViewCell l_name = dgv_SudentsList.Rows[index].Cells[0];
+			DataGridViewCell f_name = dgv_SudentsList.Rows[index].Cells[1];
+			DataGridViewCell m_name = dgv_SudentsList.Rows[index].Cells[2];
+			string last_name = l_name.Value.ToString();
+			string first_name = f_name.Value.ToString();
+			string middle_name = m_name.Value.ToString();
+
+			StudentInfo stud_info = new StudentInfo(connection, connection_string, last_name, first_name, middle_name);
+			stud_info.ShowDialog();		
 		}
 	}
 }

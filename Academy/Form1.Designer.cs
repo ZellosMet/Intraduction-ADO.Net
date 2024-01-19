@@ -35,6 +35,8 @@
 			this.btn_Refresh = new System.Windows.Forms.Button();
 			this.btn_AddGroups = new System.Windows.Forms.Button();
 			this.btn_AddShedules = new System.Windows.Forms.Button();
+			this.l_Search = new System.Windows.Forms.Label();
+			this.tb_Search = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_SudentsList)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -64,15 +66,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgv_SudentsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgv_SudentsList.Location = new System.Drawing.Point(15, 103);
+			this.dgv_SudentsList.Location = new System.Drawing.Point(15, 157);
 			this.dgv_SudentsList.MultiSelect = false;
 			this.dgv_SudentsList.Name = "dgv_SudentsList";
 			this.dgv_SudentsList.ReadOnly = true;
 			this.dgv_SudentsList.RowHeadersWidth = 51;
 			this.dgv_SudentsList.RowTemplate.Height = 24;
 			this.dgv_SudentsList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgv_SudentsList.Size = new System.Drawing.Size(773, 395);
+			this.dgv_SudentsList.Size = new System.Drawing.Size(773, 329);
 			this.dgv_SudentsList.TabIndex = 2;
+			this.dgv_SudentsList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_SudentsList_CellContentDoubleClick);
 			// 
 			// btn_AddStudents
 			// 
@@ -86,9 +89,9 @@
 			// 
 			// btn_Refresh
 			// 
-			this.btn_Refresh.Location = new System.Drawing.Point(689, 74);
+			this.btn_Refresh.Location = new System.Drawing.Point(689, 73);
 			this.btn_Refresh.Name = "btn_Refresh";
-			this.btn_Refresh.Size = new System.Drawing.Size(99, 23);
+			this.btn_Refresh.Size = new System.Drawing.Size(99, 24);
 			this.btn_Refresh.TabIndex = 4;
 			this.btn_Refresh.Text = "Обновить";
 			this.btn_Refresh.UseVisualStyleBackColor = true;
@@ -114,11 +117,33 @@
 			this.btn_AddShedules.UseVisualStyleBackColor = true;
 			this.btn_AddShedules.Click += new System.EventHandler(this.btn_AddShedules_Click);
 			// 
+			// l_Search
+			// 
+			this.l_Search.AutoSize = true;
+			this.l_Search.Location = new System.Drawing.Point(12, 117);
+			this.l_Search.Name = "l_Search";
+			this.l_Search.Size = new System.Drawing.Size(199, 16);
+			this.l_Search.TabIndex = 7;
+			this.l_Search.Text = "Поиск по фамилии студента: ";
+			// 
+			// tb_Search
+			// 
+			this.tb_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tb_Search.Location = new System.Drawing.Point(223, 117);
+			this.tb_Search.Name = "tb_Search";
+			this.tb_Search.Size = new System.Drawing.Size(565, 22);
+			this.tb_Search.TabIndex = 8;
+			this.tb_Search.TextChanged += new System.EventHandler(this.tb_Search_TextChanged);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 498);
+			this.Controls.Add(this.tb_Search);
+			this.Controls.Add(this.l_Search);
 			this.Controls.Add(this.btn_AddShedules);
 			this.Controls.Add(this.btn_AddGroups);
 			this.Controls.Add(this.btn_Refresh);
@@ -143,6 +168,8 @@
 		private System.Windows.Forms.Button btn_Refresh;
 		private System.Windows.Forms.Button btn_AddGroups;
 		private System.Windows.Forms.Button btn_AddShedules;
+		private System.Windows.Forms.Label l_Search;
+		private System.Windows.Forms.TextBox tb_Search;
 	}
 }
 
