@@ -89,7 +89,6 @@ namespace Academy
 			command = $@"SELECT teacher_id FROM Teachers WHERE Teachers.last_name LIKE '{t_last_name}' AND Teachers.first_name LIKE '{t_first_name}' AND Teachers.middle_name LIKE '{t_middle_name}'";
 			cmd = new SqlCommand(command, connection);
 			id_teacher = Convert.ToInt32(cmd.ExecuteScalar());
-			string d = "d";
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{

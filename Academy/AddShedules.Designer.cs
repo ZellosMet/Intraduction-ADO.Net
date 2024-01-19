@@ -139,6 +139,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_Time.Location = new System.Drawing.Point(12, 236);
+			this.tb_Time.MaxLength = 5;
 			this.tb_Time.Name = "tb_Time";
 			this.tb_Time.Size = new System.Drawing.Size(410, 22);
 			this.tb_Time.TabIndex = 10;

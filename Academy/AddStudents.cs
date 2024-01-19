@@ -66,7 +66,7 @@ namespace Academy
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
-				try
+				try 
 				{
 					command = $@"INSERT INTO Students (last_name, first_name, middle_name, birth_date, [group])
 							VALUES (@last_name, @first_name, @middle_name, @birth_date, @id_group)";

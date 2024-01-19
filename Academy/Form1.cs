@@ -99,7 +99,7 @@ namespace Academy
 
 		private void tb_Search_TextChanged(object sender, EventArgs e)
 		{
-			(dgv_SudentsList.DataSource as DataTable).DefaultView.RowFilter = $"Фамилия LIKE '%{tb_Search.Text}%'";
+			(dgv_SudentsList.DataSource as DataTable).DefaultView.RowFilter = $"Фамилия LIKE '{tb_Search.Text}%'";
 		}
 
 		private void dgv_SudentsList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
