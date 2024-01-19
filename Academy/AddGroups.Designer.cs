@@ -34,6 +34,8 @@
 			this.l_AddResult = new System.Windows.Forms.Label();
 			this.cb_Direction = new System.Windows.Forms.ComboBox();
 			this.l_DirectionName = new System.Windows.Forms.Label();
+			this.dgv_GroupList = new System.Windows.Forms.DataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.dgv_GroupList)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// L_GroupName
@@ -51,8 +53,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_GroupName.Location = new System.Drawing.Point(16, 42);
+			this.tb_GroupName.MaxLength = 6;
 			this.tb_GroupName.Name = "tb_GroupName";
-			this.tb_GroupName.Size = new System.Drawing.Size(483, 22);
+			this.tb_GroupName.Size = new System.Drawing.Size(337, 22);
 			this.tb_GroupName.TabIndex = 4;
 			// 
 			// btn_AddGroup
@@ -67,6 +70,9 @@
 			// 
 			// l_AddResult
 			// 
+			this.l_AddResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.l_AddResult.AutoSize = true;
 			this.l_AddResult.Location = new System.Drawing.Point(172, 166);
 			this.l_AddResult.Name = "l_AddResult";
@@ -81,7 +87,7 @@
 			this.cb_Direction.FormattingEnabled = true;
 			this.cb_Direction.Location = new System.Drawing.Point(16, 111);
 			this.cb_Direction.Name = "cb_Direction";
-			this.cb_Direction.Size = new System.Drawing.Size(483, 24);
+			this.cb_Direction.Size = new System.Drawing.Size(337, 24);
 			this.cb_Direction.TabIndex = 8;
 			// 
 			// l_DirectionName
@@ -93,11 +99,24 @@
 			this.l_DirectionName.TabIndex = 9;
 			this.l_DirectionName.Text = "Направление";
 			// 
+			// dgv_GroupList
+			// 
+			this.dgv_GroupList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgv_GroupList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgv_GroupList.Location = new System.Drawing.Point(378, 42);
+			this.dgv_GroupList.Name = "dgv_GroupList";
+			this.dgv_GroupList.RowHeadersWidth = 51;
+			this.dgv_GroupList.RowTemplate.Height = 24;
+			this.dgv_GroupList.Size = new System.Drawing.Size(526, 150);
+			this.dgv_GroupList.TabIndex = 10;
+			// 
 			// AddGroups
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(511, 198);
+			this.ClientSize = new System.Drawing.Size(916, 198);
+			this.Controls.Add(this.dgv_GroupList);
 			this.Controls.Add(this.l_DirectionName);
 			this.Controls.Add(this.cb_Direction);
 			this.Controls.Add(this.l_AddResult);
@@ -106,6 +125,7 @@
 			this.Controls.Add(this.L_GroupName);
 			this.Name = "AddGroups";
 			this.Text = "AddGroups";
+			((System.ComponentModel.ISupportInitialize)(this.dgv_GroupList)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -119,5 +139,6 @@
 		private System.Windows.Forms.Label l_AddResult;
 		private System.Windows.Forms.ComboBox cb_Direction;
 		private System.Windows.Forms.Label l_DirectionName;
+		private System.Windows.Forms.DataGridView dgv_GroupList;
 	}
 }

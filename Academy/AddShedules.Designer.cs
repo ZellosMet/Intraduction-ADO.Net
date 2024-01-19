@@ -40,6 +40,8 @@
 			this.tb_Time = new System.Windows.Forms.TextBox();
 			this.l_Time = new System.Windows.Forms.Label();
 			this.l_Result = new System.Windows.Forms.Label();
+			this.dgv_ScheduleList = new System.Windows.Forms.DataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.dgv_ScheduleList)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// cb_Groups
@@ -50,7 +52,7 @@
 			this.cb_Groups.FormattingEnabled = true;
 			this.cb_Groups.Location = new System.Drawing.Point(13, 36);
 			this.cb_Groups.Name = "cb_Groups";
-			this.cb_Groups.Size = new System.Drawing.Size(524, 24);
+			this.cb_Groups.Size = new System.Drawing.Size(409, 24);
 			this.cb_Groups.TabIndex = 0;
 			// 
 			// cb_Disciplines
@@ -61,7 +63,7 @@
 			this.cb_Disciplines.FormattingEnabled = true;
 			this.cb_Disciplines.Location = new System.Drawing.Point(13, 87);
 			this.cb_Disciplines.Name = "cb_Disciplines";
-			this.cb_Disciplines.Size = new System.Drawing.Size(524, 24);
+			this.cb_Disciplines.Size = new System.Drawing.Size(409, 24);
 			this.cb_Disciplines.TabIndex = 1;
 			// 
 			// cb_Teachers
@@ -72,7 +74,7 @@
 			this.cb_Teachers.FormattingEnabled = true;
 			this.cb_Teachers.Location = new System.Drawing.Point(13, 132);
 			this.cb_Teachers.Name = "cb_Teachers";
-			this.cb_Teachers.Size = new System.Drawing.Size(524, 24);
+			this.cb_Teachers.Size = new System.Drawing.Size(409, 24);
 			this.cb_Teachers.TabIndex = 2;
 			// 
 			// dtp_StartDate
@@ -82,7 +84,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dtp_StartDate.Location = new System.Drawing.Point(13, 182);
 			this.dtp_StartDate.Name = "dtp_StartDate";
-			this.dtp_StartDate.Size = new System.Drawing.Size(524, 22);
+			this.dtp_StartDate.Size = new System.Drawing.Size(409, 22);
 			this.dtp_StartDate.TabIndex = 3;
 			// 
 			// btn_AddSchedule
@@ -138,7 +140,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_Time.Location = new System.Drawing.Point(12, 236);
 			this.tb_Time.Name = "tb_Time";
-			this.tb_Time.Size = new System.Drawing.Size(525, 22);
+			this.tb_Time.Size = new System.Drawing.Size(410, 22);
 			this.tb_Time.TabIndex = 10;
 			this.tb_Time.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_Time_KeyPress);
 			// 
@@ -153,17 +155,33 @@
 			// 
 			// l_Result
 			// 
+			this.l_Result.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.l_Result.AutoSize = true;
 			this.l_Result.Location = new System.Drawing.Point(207, 306);
 			this.l_Result.Name = "l_Result";
 			this.l_Result.Size = new System.Drawing.Size(0, 16);
 			this.l_Result.TabIndex = 12;
 			// 
+			// dgv_ScheduleList
+			// 
+			this.dgv_ScheduleList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgv_ScheduleList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgv_ScheduleList.Location = new System.Drawing.Point(445, 36);
+			this.dgv_ScheduleList.Name = "dgv_ScheduleList";
+			this.dgv_ScheduleList.RowHeadersWidth = 51;
+			this.dgv_ScheduleList.RowTemplate.Height = 24;
+			this.dgv_ScheduleList.Size = new System.Drawing.Size(894, 285);
+			this.dgv_ScheduleList.TabIndex = 13;
+			// 
 			// AddShedules
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(545, 333);
+			this.ClientSize = new System.Drawing.Size(1355, 333);
+			this.Controls.Add(this.dgv_ScheduleList);
 			this.Controls.Add(this.l_Result);
 			this.Controls.Add(this.l_Time);
 			this.Controls.Add(this.tb_Time);
@@ -178,6 +196,7 @@
 			this.Controls.Add(this.cb_Groups);
 			this.Name = "AddShedules";
 			this.Text = "AddShedules";
+			((System.ComponentModel.ISupportInitialize)(this.dgv_ScheduleList)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -197,5 +216,6 @@
 		private System.Windows.Forms.TextBox tb_Time;
 		private System.Windows.Forms.Label l_Time;
 		private System.Windows.Forms.Label l_Result;
+		private System.Windows.Forms.DataGridView dgv_ScheduleList;
 	}
 }

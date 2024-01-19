@@ -17,6 +17,7 @@ namespace Academy
 		SqlConnection connection;
 		SqlCommand cmd;
 		SqlDataReader rdr;
+		DataTable table;
 		public AddGroups(SqlConnection connection, string connection_string)
 		{
 			InitializeComponent();
@@ -25,6 +26,7 @@ namespace Academy
 			LoadGroupsToComboBox();
 			l_AddResult.Text = "";
 			cb_Direction.DropDownStyle = ComboBoxStyle.DropDownList;
+			LoadData();
 		}
 		void LoadGroupsToComboBox()
 		{
@@ -40,6 +42,7 @@ namespace Academy
 
 		private void btn_AddGroup_Click(object sender, EventArgs e)
 		{
+			CloseConnection();
 			string command, group_name, direction_name;
 			int id_direction;
 			if (tb_GroupName.Text.Length == 0)
@@ -76,6 +79,37 @@ namespace Academy
 					connection.Close();
 				}
 			}
+			LoadData();
+		}
+
+		void LoadData()
+		{
+			CloseConnection();
+			string commandLine = $@"
+			SELECT [Группа] = group_name, [Направление] = direction_name
+			FROM Groups, Directions
+			WHERE Groups.direction= Directions.direction_id";
+			SqlCommand cmd = new SqlCommand(commandLine, connection);
+
+			connection.Open();
+			rdr = cmd.ExecuteReader();
+
+			table = new DataTable();
+			for (int i = 0; i < rdr.FieldCount; i++) table.Columns.Add(rdr.GetName(i));
+			while (rdr.Read())
+			{
+				DataRow row = table.NewRow();
+				for (int i = 0; i < rdr.FieldCount; i++) row[i] = rdr[i];
+				table.Rows.Add(row);
+			}
+			dgv_GroupList.DataSource = table;
+
+			CloseConnection();
+		}
+		void CloseConnection()
+		{
+			if (rdr != null) rdr.Close();
+			if (connection != null) connection.Close();
 		}
 	}
 }

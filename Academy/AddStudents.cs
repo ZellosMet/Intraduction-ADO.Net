@@ -20,6 +20,7 @@ namespace Academy
 		SqlConnection connection;
 		SqlCommand cmd;
 		SqlDataReader rdr;
+		DataTable table;
 		string path_photo = string.Empty;
 
 		public AddStudents(SqlConnection connection, string connection_string)
@@ -32,7 +33,7 @@ namespace Academy
 			cb_Groups.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtp_BirthDate.Format = DateTimePickerFormat.Custom;
 			dtp_BirthDate.CustomFormat = "yyy-MM-dd";
-
+			LoadData();
 		}
 		void LoadGroupsToComboBox()
 		{
@@ -91,6 +92,36 @@ namespace Academy
 					connection.Close();
 				}
 			}
+			LoadData();
+		}
+		void LoadData()
+		{
+			CloseConnection();
+			string commandLine = $@"
+			SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name, [Дата рождения] = birth_date, [Группа] = group_name
+			FROM Groups, Students
+			WHERE Students.[group] = Groups.group_id";
+			SqlCommand cmd = new SqlCommand(commandLine, connection);
+
+			connection.Open();
+			rdr = cmd.ExecuteReader();
+
+			table = new DataTable();
+			for (int i = 0; i < rdr.FieldCount; i++) table.Columns.Add(rdr.GetName(i));
+			while (rdr.Read())
+			{
+				DataRow row = table.NewRow();
+				for (int i = 0; i < rdr.FieldCount; i++) row[i] = rdr[i];
+				table.Rows.Add(row);
+			}
+			dgv_StudentsList.DataSource = table;
+
+			CloseConnection();
+		}
+		void CloseConnection()
+		{
+			if (rdr != null) rdr.Close();
+			if (connection != null) connection.Close();
 		}
 	}
 }

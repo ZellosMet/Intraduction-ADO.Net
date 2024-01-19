@@ -17,6 +17,7 @@ namespace Academy
 		SqlConnection connection;
 		SqlCommand cmd;
 		SqlDataReader rdr;
+		DataTable table;
 		public AddShedules(SqlConnection connection, string connection_string)
 		{
 			InitializeComponent();
@@ -31,6 +32,7 @@ namespace Academy
 			cb_Teachers.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtp_StartDate.Format = DateTimePickerFormat.Custom;
 			dtp_StartDate.CustomFormat = "yyy-MM-dd";
+			LoadData();
 
 		}
 		void LoadDataToComboBox()
@@ -115,7 +117,8 @@ namespace Academy
 					rdr.Close();
 					connection.Close();
 				}
-			}		
+			}
+			LoadData();
 		}
 
 		private void tb_Time_KeyPress(object sender, KeyPressEventArgs e)
@@ -124,6 +127,46 @@ namespace Academy
 			{
 				e.Handled = true;
 			}
+		}
+		void LoadData()
+		{
+			CloseConnection();
+			string commandLine = $@"
+			SELECT [Предмет] = discipline_name, 
+			[Преподаватель] = Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name, 
+			[Дата] = [date], 
+			[Время] = [time], 
+			[Группа] = group_name,
+			[Состояние] = IIF(spent = 1, 'Проведено', 'Запланировано')
+			FROM Teachers, Groups, Schedule, Disciplines
+			WHERE Disciplines.discipline_id = Schedule.discipline
+			AND Teachers.teacher_id = Schedule.techer
+			AND Groups.group_id = Schedule.[group]";
+			SqlCommand cmd = new SqlCommand(commandLine, connection);
+
+			connection.Open();
+			rdr = cmd.ExecuteReader();
+
+			table = new DataTable();
+			for (int i = 0; i < rdr.FieldCount; i++) table.Columns.Add(rdr.GetName(i));
+			while (rdr.Read())
+			{
+				DataRow row = table.NewRow();
+				for (int i = 0; i < rdr.FieldCount; i++)
+				{
+					if (i == 2) row[i] = Convert.ToString(rdr[i]).Split(' ')[0];
+					else row[i] = rdr[i];
+				}
+				table.Rows.Add(row);
+			}
+			dgv_ScheduleList.DataSource = table;
+
+			CloseConnection();
+		}
+		void CloseConnection()
+		{
+			if (rdr != null) rdr.Close();
+			if (connection != null) connection.Close();
 		}
 	}
 }

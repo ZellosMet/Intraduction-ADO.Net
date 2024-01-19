@@ -42,6 +42,8 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.l_AddResult = new System.Windows.Forms.Label();
+			this.dgv_StudentsList = new System.Windows.Forms.DataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.dgv_StudentsList)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tb_FirsName
@@ -51,7 +53,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_FirsName.Location = new System.Drawing.Point(13, 33);
 			this.tb_FirsName.Name = "tb_FirsName";
-			this.tb_FirsName.Size = new System.Drawing.Size(552, 22);
+			this.tb_FirsName.Size = new System.Drawing.Size(373, 22);
 			this.tb_FirsName.TabIndex = 0;
 			// 
 			// cb_Groups
@@ -62,7 +64,7 @@
 			this.cb_Groups.FormattingEnabled = true;
 			this.cb_Groups.Location = new System.Drawing.Point(13, 258);
 			this.cb_Groups.Name = "cb_Groups";
-			this.cb_Groups.Size = new System.Drawing.Size(552, 24);
+			this.cb_Groups.Size = new System.Drawing.Size(373, 24);
 			this.cb_Groups.TabIndex = 4;
 			// 
 			// tb_MiddleName
@@ -72,7 +74,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_MiddleName.Location = new System.Drawing.Point(13, 144);
 			this.tb_MiddleName.Name = "tb_MiddleName";
-			this.tb_MiddleName.Size = new System.Drawing.Size(552, 22);
+			this.tb_MiddleName.Size = new System.Drawing.Size(373, 22);
 			this.tb_MiddleName.TabIndex = 6;
 			// 
 			// tb_LastName
@@ -82,7 +84,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_LastName.Location = new System.Drawing.Point(13, 86);
 			this.tb_LastName.Name = "tb_LastName";
-			this.tb_LastName.Size = new System.Drawing.Size(552, 22);
+			this.tb_LastName.Size = new System.Drawing.Size(373, 22);
 			this.tb_LastName.TabIndex = 7;
 			// 
 			// ofd_AddPhoto
@@ -115,7 +117,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dtp_BirthDate.Location = new System.Drawing.Point(13, 199);
 			this.dtp_BirthDate.Name = "dtp_BirthDate";
-			this.dtp_BirthDate.Size = new System.Drawing.Size(552, 22);
+			this.dtp_BirthDate.Size = new System.Drawing.Size(373, 22);
 			this.dtp_BirthDate.TabIndex = 10;
 			// 
 			// label1
@@ -165,17 +167,33 @@
 			// 
 			// l_AddResult
 			// 
+			this.l_AddResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.l_AddResult.AutoSize = true;
 			this.l_AddResult.Location = new System.Drawing.Point(189, 366);
 			this.l_AddResult.Name = "l_AddResult";
 			this.l_AddResult.Size = new System.Drawing.Size(0, 16);
 			this.l_AddResult.TabIndex = 16;
 			// 
+			// dgv_StudentsList
+			// 
+			this.dgv_StudentsList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dgv_StudentsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgv_StudentsList.Location = new System.Drawing.Point(413, 33);
+			this.dgv_StudentsList.Name = "dgv_StudentsList";
+			this.dgv_StudentsList.RowHeadersWidth = 51;
+			this.dgv_StudentsList.RowTemplate.Height = 24;
+			this.dgv_StudentsList.Size = new System.Drawing.Size(771, 359);
+			this.dgv_StudentsList.TabIndex = 17;
+			// 
 			// AddStudents
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(576, 404);
+			this.ClientSize = new System.Drawing.Size(1197, 404);
+			this.Controls.Add(this.dgv_StudentsList);
 			this.Controls.Add(this.l_AddResult);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
@@ -191,6 +209,7 @@
 			this.Controls.Add(this.tb_FirsName);
 			this.Name = "AddStudents";
 			this.Text = "AddStudents";
+			((System.ComponentModel.ISupportInitialize)(this.dgv_StudentsList)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -212,5 +231,6 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label l_AddResult;
+		private System.Windows.Forms.DataGridView dgv_StudentsList;
 	}
 }
