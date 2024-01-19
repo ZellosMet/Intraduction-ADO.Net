@@ -32,6 +32,7 @@ namespace Academy
 			cb_Groups.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtp_BirthDate.Format = DateTimePickerFormat.Custom;
 			dtp_BirthDate.CustomFormat = "yyy-MM-dd";
+
 		}
 		void LoadGroupsToComboBox()
 		{
@@ -86,6 +87,7 @@ namespace Academy
 				}
 				finally
 				{
+					rdr.Close();
 					connection.Close();
 				}
 			}

@@ -24,12 +24,14 @@ namespace Academy
 			this.connection_string = connection_string;
 			
 			LoadDataToComboBox();
+
 			l_Result.Text = "";
 			cb_Groups.DropDownStyle = ComboBoxStyle.DropDownList;
 			cb_Disciplines.DropDownStyle = ComboBoxStyle.DropDownList;
 			cb_Teachers.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtp_StartDate.Format = DateTimePickerFormat.Custom;
 			dtp_StartDate.CustomFormat = "yyy-MM-dd";
+
 		}
 		void LoadDataToComboBox()
 		{

@@ -19,12 +19,17 @@ namespace Academy
 		SqlConnection connection;
 		SqlDataReader rdr;
 		DataTable table;
+		void CloseConnection()
+		{ 
+			if(rdr != null) rdr.Close();
+			if(connection != null)connection.Close();
+		}
 		public Form1()
 		{
 			InitializeComponent();
 			cb_CurrentGroup.DropDownStyle = ComboBoxStyle.DropDownList;
-			//connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
-			connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
+			connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
+			//connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
 			connection = new SqlConnection(connection_string);
 			LoadTablesToComboBox();
 		}
@@ -61,29 +66,33 @@ namespace Academy
 				table.Rows.Add(row);
 			}
 			dgv_SudentsList.DataSource = table;
+			
 			rdr.Close();
-
 			connection.Close();
 		}
 		private void btn_Refresh_Click(object sender, EventArgs e)
 		{
+			CloseConnection();
 			if (dgv_SudentsList.RowCount == 0) return;
 			cb_CurrentGroup_SelectedIndexChanged(sender, e);
 		}
 
 		private void btn_AddStudents_Click(object sender, EventArgs e)
 		{
+			CloseConnection();
 			AddStudents add_students = new AddStudents(connection, connection_string);
 			add_students.ShowDialog();
 		}
 		private void btn_AddGroups_Click(object sender, EventArgs e)
 		{
+			CloseConnection();
 			AddGroups add_groups = new AddGroups(connection, connection_string);
 			add_groups.ShowDialog();
 		}
 
 		private void btn_AddShedules_Click(object sender, EventArgs e)
 		{
+			CloseConnection();
 			AddShedules add_shedules = new AddShedules(connection, connection_string);
 			add_shedules.ShowDialog();
 		}
@@ -104,6 +113,7 @@ namespace Academy
 			string first_name = f_name.Value.ToString();
 			string middle_name = m_name.Value.ToString();
 
+			CloseConnection();
 			StudentInfo stud_info = new StudentInfo(connection, connection_string, last_name, first_name, middle_name);
 			stud_info.ShowDialog();		
 		}
