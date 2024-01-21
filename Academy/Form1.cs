@@ -15,6 +15,7 @@ namespace Academy
 {
 	public partial class Form1 : Form
 	{
+		string selection = "group";
 		string connection_string;
 		SqlConnection connection;
 		SqlDataReader rdr;
@@ -28,14 +29,23 @@ namespace Academy
 		{
 			InitializeComponent();
 			cb_CurrentGroup.DropDownStyle = ComboBoxStyle.DropDownList;
-			connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
-			//connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
+			//connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
+			connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
 			connection = new SqlConnection(connection_string);
+			rb_ForGroup.Checked = true;
 			LoadTablesToComboBox();
 		}
 		void LoadTablesToComboBox()
 		{
-			string commandLine = @"SELECT group_name FROM Groups";
+			cb_CurrentGroup.Items.Clear();
+			string commandLine;
+			if (selection == "group")
+			{ 
+				cb_CurrentGroup.Items.Add("");
+				commandLine = @"SELECT group_name FROM Groups";
+			}
+			else commandLine = @"SELECT speciality_name FROM Specialites";
+
 			SqlCommand cmd = new SqlCommand(commandLine, connection);
 			connection.Open();
 			rdr = cmd.ExecuteReader();
@@ -43,17 +53,23 @@ namespace Academy
 				cb_CurrentGroup.Items.Add(rdr[0]);
 			rdr.Close();
 			connection.Close();
+			if(selection == "group")
+				commandLine = $@"SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name FROM Students";
+			else
+				commandLine = $@"
+								SELECT [Фамилия] = Students.last_name, [Имя] = Students.first_name, [Отчество] = Students.middle_name
+								FROM Students, Groups, Directions, Specialites, SpecialitesDirectionRelation
+								WHERE Students.[group] = Groups.group_id
+								AND Groups.direction = Directions.direction_id
+								AND Directions.direction_id = SpecialitesDirectionRelation.direction
+								AND SpecialitesDirectionRelation.speciality = Specialites.speciality_id
+								AND Specialites.speciality_name = '{cb_CurrentGroup.Items[0]}'";
+			LoadTableToGridView(commandLine);
 		}
 
-		private void cb_CurrentGroup_SelectedIndexChanged(object sender, EventArgs e)
+		public void LoadTableToGridView(string commandLine)
 		{
-			string commandLine = $@"
-			SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name
-			FROM Groups, Students
-			WHERE Groups.group_name = '{cb_CurrentGroup.SelectedItem}'
-			AND Groups.group_id = Students.[group]";			
 			SqlCommand cmd = new SqlCommand(commandLine, connection);
-
 			connection.Open();
 			rdr = cmd.ExecuteReader();
 
@@ -66,9 +82,46 @@ namespace Academy
 				table.Rows.Add(row);
 			}
 			dgv_SudentsList.DataSource = table;
-			
+
 			rdr.Close();
 			connection.Close();
+
+			l_CountStudents.Text = $"Количество студентов: {dgv_SudentsList.RowCount - 1}";
+		}
+
+		private void cb_CurrentGroup_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			string commandLine = string.Empty;
+			if (selection == "group")
+			{
+				if (cb_CurrentGroup.Text.Length == 0)
+				{
+					commandLine = $@"
+									SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name
+									FROM Students";
+				}
+				else
+				{
+					commandLine = $@"
+									SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name
+									FROM Groups, Students
+									WHERE Groups.group_name = '{cb_CurrentGroup.SelectedItem}'
+									AND Groups.group_id = Students.[group]";
+				}
+			}
+			else
+			{
+				commandLine = $@"
+								SELECT [Фамилия] = Students.last_name, [Имя] = Students.first_name, [Отчество] = Students.middle_name
+								FROM Students, Groups, Directions, Specialites, SpecialitesDirectionRelation
+								WHERE Students.[group] = Groups.group_id
+								AND Groups.direction = Directions.direction_id
+								AND Directions.direction_id = SpecialitesDirectionRelation.direction
+								AND SpecialitesDirectionRelation.speciality = Specialites.speciality_id
+								AND Specialites.speciality_name = '{(cb_CurrentGroup.Text.Length == 0? cb_CurrentGroup.Items[0] : cb_CurrentGroup.SelectedItem)}'";
+			}
+			LoadTableToGridView(commandLine);
+
 		}
 		private void btn_Refresh_Click(object sender, EventArgs e)
 		{
@@ -116,6 +169,22 @@ namespace Academy
 			CloseConnection();
 			StudentInfo stud_info = new StudentInfo(connection, connection_string, last_name, first_name, middle_name);
 			stud_info.ShowDialog();		
+		}
+
+		private void rb_ForGroup_MouseClick(object sender, MouseEventArgs e)
+		{
+			selection = "group";
+			rb_ForSpeciality.Checked = false;
+			rb_ForGroup.Checked = true;
+			LoadTablesToComboBox();
+		}
+
+		private void rb_ForSpeciality_MouseClick(object sender, MouseEventArgs e)
+		{
+			selection = "speciality";
+			rb_ForSpeciality.Checked = true;
+			rb_ForGroup.Checked = false;
+			LoadTablesToComboBox();
 		}
 	}
 }

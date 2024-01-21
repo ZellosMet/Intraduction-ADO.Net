@@ -86,7 +86,7 @@ namespace Academy
 		{
 			CloseConnection();
 			string commandLine = $@"
-			SELECT [Группа] = group_name, [Направление] = direction_name
+			SELECT [Группа] = group_name, [Направление] = direction_name, [Архив] = IIF(Groups.archive = 1, 'В архиве', 'Не в архиве')
 			FROM Groups, Directions
 			WHERE Groups.direction= Directions.direction_id";
 			SqlCommand cmd = new SqlCommand(commandLine, connection);
