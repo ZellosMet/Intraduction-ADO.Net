@@ -70,8 +70,8 @@ namespace Academy
 			{
 				try
 				{
-					command = $@"INSERT INTO Groups (group_name, direction)
-							VALUES (@group_name, @direction)";
+					command = $@"INSERT INTO Groups (group_name, direction, archive)
+							VALUES (@group_name, @direction, '0')";
 					cmd = new SqlCommand(command, connection);
 					connection.Open();
 
@@ -79,7 +79,7 @@ namespace Academy
 					cmd.Parameters.Add("@direction", SqlDbType.SmallInt, 32).Value = id_direction;
 
 					cmd.ExecuteNonQuery();
-					l_AddResult.Text = "Студент успешно добавлен!";
+					l_AddResult.Text = "Группа успешно добавлена!";
 				}
 				catch (Exception exc)
 				{
@@ -125,7 +125,7 @@ namespace Academy
 		private void dgv_GroupList_CellClick(object sender,DataGridViewCellEventArgs e)
 		{
 			btn_UpdateGroup.Enabled = true;
-			tb_NewGroupName.Text = dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[0].Value.ToString();
+			tb_NewGroupName.Text = dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[0].Value.ToString().Trim();
 			cb_NewDirection.SelectedIndex = cb_NewDirection.FindString(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[1].Value.ToString());
 			if(!(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[2].Value.ToString() == "Не в архиве"))
 				chkb_Archive.Checked = true;
