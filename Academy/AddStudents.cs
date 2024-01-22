@@ -63,6 +63,7 @@ namespace Academy
 			cmd = new SqlCommand(command, connection);
 			connection.Open();
 			id_group = Convert.ToInt32(cmd.ExecuteScalar());
+			connection.Close();
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
@@ -88,15 +89,14 @@ namespace Academy
 				}
 				finally
 				{
-					rdr.Close();
-					connection.Close();
+					rdr?.Close();
+					connection?.Close();
 				}
 			}
 			LoadData();
 		}
 		void LoadData()
 		{
-			CloseConnection();
 			string commandLine = $@"
 			SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name, [Дата рождения] = birth_date, [Группа] = group_name
 			FROM Groups, Students
@@ -115,13 +115,8 @@ namespace Academy
 				table.Rows.Add(row);
 			}
 			dgv_StudentsList.DataSource = table;
-
-			CloseConnection();
-		}
-		void CloseConnection()
-		{
-			if (rdr != null) rdr.Close();
-			if (connection != null) connection.Close();
+			rdr.Close();
+			connection.Close();
 		}
 	}
 }

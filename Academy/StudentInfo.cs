@@ -224,8 +224,8 @@ namespace Academy
 				}
 				finally
 				{
-					rdr.Close();
-					connection.Close();
+					rdr?.Close();
+					connection?.Close();
 				}
 			}
 		}

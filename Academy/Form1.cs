@@ -22,8 +22,10 @@ namespace Academy
 		DataTable table;
 		void CloseConnection()
 		{ 
-			if(rdr != null) rdr.Close();
-			if(connection != null)connection.Close();
+			//if(rdr != null) rdr.Close();
+			//if(connection != null)connection.Close();
+			rdr?.Close();
+			connection?.Close();
 		}
 		public Form1()
 		{

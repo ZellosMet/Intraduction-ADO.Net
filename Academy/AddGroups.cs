@@ -50,10 +50,8 @@ namespace Academy
 			rdr.Close();
 			connection.Close();
 		}
-
 		private void btn_AddGroup_Click(object sender, EventArgs e)
 		{
-			CloseConnection();
 			string command, group_name, direction_name;
 			int id_direction;
 			if (tb_GroupName.Text.Length == 0)
@@ -65,6 +63,7 @@ namespace Academy
 			cmd = new SqlCommand(command, connection);
 			connection.Open();
 			id_direction = Convert.ToInt32(cmd.ExecuteScalar());
+			connection.Close();
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
@@ -87,7 +86,7 @@ namespace Academy
 				}
 				finally
 				{
-					connection.Close();
+					connection?.Close();
 				}
 			}
 			LoadData();
@@ -95,7 +94,6 @@ namespace Academy
 
 		void LoadData()
 		{
-			CloseConnection();
 			string commandLine = $@"
 			SELECT [Группа] = group_name, [Направление] = direction_name, [Архив] = IIF(Groups.archive = 1, 'В архиве', 'Не в архиве')
 			FROM Groups, Directions
@@ -114,13 +112,7 @@ namespace Academy
 				table.Rows.Add(row);
 			}
 			dgv_GroupList.DataSource = table;
-
-			CloseConnection();
-		}
-		void CloseConnection()
-		{
-			if (rdr != null) rdr.Close();
-			if (connection != null) connection.Close();
+			connection.Close();
 		}
 		private void dgv_GroupList_CellClick(object sender,DataGridViewCellEventArgs e)
 		{
@@ -132,12 +124,11 @@ namespace Academy
 			else
 				chkb_Archive.Checked = false;
 
-			string command = $@"SELECT group_id FROM Groups WHERE Groups.group_name LIKE '{tb_NewGroupName.Text}'";
+			string command = $@"(SELECT group_id FROM Groups WHERE Groups.group_name='{tb_NewGroupName.Text}')";
 			cmd = new SqlCommand(command, connection);
 			connection.Open();
 			id_group = Convert.ToInt32(cmd.ExecuteScalar());
 			connection.Close();
-
 		}
 		private void btn_UpdateGroup_Click(object sender, EventArgs e)
 		{
@@ -175,6 +166,7 @@ namespace Academy
 			cmd = new SqlCommand(command, connection);
 			connection.Open();
 			id_direction = Convert.ToInt32(cmd.ExecuteScalar());
+			connection.Close();
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
@@ -200,8 +192,8 @@ namespace Academy
 				}
 				finally
 				{
-					rdr.Close();
-					connection.Close();
+					rdr?.Close();
+					connection?.Close();
 				}
 				LoadData();
 			}

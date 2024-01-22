@@ -89,6 +89,7 @@ namespace Academy
 			command = $@"SELECT teacher_id FROM Teachers WHERE Teachers.last_name LIKE '{t_last_name}' AND Teachers.first_name LIKE '{t_first_name}' AND Teachers.middle_name LIKE '{t_middle_name}'";
 			cmd = new SqlCommand(command, connection);
 			id_teacher = Convert.ToInt32(cmd.ExecuteScalar());
+			connection.Close();
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
@@ -113,8 +114,8 @@ namespace Academy
 				}
 				finally
 				{
-					rdr.Close();
-					connection.Close();
+					rdr?.Close();
+					connection?.Close();
 				}
 			}
 			LoadData();
@@ -123,13 +124,10 @@ namespace Academy
 		private void tb_Time_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if ((e.KeyChar <= 47 || e.KeyChar >= 59) && e.KeyChar != 8)
-			{
 				e.Handled = true;
-			}
 		}
 		void LoadData()
 		{
-			CloseConnection();
 			string commandLine = $@"
 			SELECT [Предмет] = discipline_name, 
 			[Преподаватель] = Teachers.last_name + ' ' + Teachers.first_name + ' ' + Teachers.middle_name, 
@@ -159,13 +157,9 @@ namespace Academy
 				table.Rows.Add(row);
 			}
 			dgv_ScheduleList.DataSource = table;
+			rdr.Close();
 
-			CloseConnection();
-		}
-		void CloseConnection()
-		{
-			if (rdr != null) rdr.Close();
-			if (connection != null) connection.Close();
+			connection.Close();
 		}
 	}
 }
