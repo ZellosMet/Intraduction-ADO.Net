@@ -33,6 +33,7 @@ namespace Academy
 			connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
 			connection = new SqlConnection(connection_string);
 			rb_ForGroup.Checked = true;
+			chkb_Archive.Checked = false;
 			LoadTablesToComboBox();
 		}
 		void LoadTablesToComboBox()
@@ -40,9 +41,12 @@ namespace Academy
 			cb_CurrentGroup.Items.Clear();
 			string commandLine;
 			if (selection == "group")
-			{ 
+			{
 				cb_CurrentGroup.Items.Add("");
-				commandLine = @"SELECT group_name FROM Groups";
+				if(chkb_Archive.Checked)
+					commandLine = @"SELECT group_name FROM Groups WHERE Groups.archive = 1";
+				else
+					commandLine = @"SELECT group_name FROM Groups WHERE Groups.archive = 0";
 			}
 			else commandLine = @"SELECT speciality_name FROM Specialites";
 
@@ -141,6 +145,7 @@ namespace Academy
 			CloseConnection();
 			AddGroups add_groups = new AddGroups(connection, connection_string);
 			add_groups.ShowDialog();
+			LoadTablesToComboBox();
 		}
 
 		private void btn_AddShedules_Click(object sender, EventArgs e)
@@ -159,12 +164,9 @@ namespace Academy
 		{
 			if (dgv_SudentsList.RowCount == 0) return;
 			int index = dgv_SudentsList.CurrentCell.RowIndex;
-			DataGridViewCell l_name = dgv_SudentsList.Rows[index].Cells[0];
-			DataGridViewCell f_name = dgv_SudentsList.Rows[index].Cells[1];
-			DataGridViewCell m_name = dgv_SudentsList.Rows[index].Cells[2];
-			string last_name = l_name.Value.ToString();
-			string first_name = f_name.Value.ToString();
-			string middle_name = m_name.Value.ToString();
+			string last_name = dgv_SudentsList.Rows[index].Cells[0].Value.ToString();
+			string first_name = dgv_SudentsList.Rows[index].Cells[1].Value.ToString();
+			string middle_name = dgv_SudentsList.Rows[index].Cells[2].Value.ToString();
 
 			CloseConnection();
 			StudentInfo stud_info = new StudentInfo(connection, connection_string, last_name, first_name, middle_name);
@@ -184,6 +186,18 @@ namespace Academy
 			selection = "speciality";
 			rb_ForSpeciality.Checked = true;
 			rb_ForGroup.Checked = false;
+			LoadTablesToComboBox();
+		}
+		private void rb_ForGroup_CheckedChanged(object sender, EventArgs e)
+		{
+			if (rb_ForGroup.Checked) 
+				chkb_Archive.Enabled = true;
+			else
+				chkb_Archive.Enabled = false;
+		}
+
+		private void chkb_Archive_CheckedChanged(object sender, EventArgs e)
+		{
 			LoadTablesToComboBox();
 		}
 	}

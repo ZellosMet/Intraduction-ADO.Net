@@ -172,8 +172,10 @@
 			this.dgv_ScheduleList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_ScheduleList.Location = new System.Drawing.Point(445, 36);
 			this.dgv_ScheduleList.Name = "dgv_ScheduleList";
+			this.dgv_ScheduleList.ReadOnly = true;
 			this.dgv_ScheduleList.RowHeadersWidth = 51;
 			this.dgv_ScheduleList.RowTemplate.Height = 24;
+			this.dgv_ScheduleList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dgv_ScheduleList.Size = new System.Drawing.Size(894, 285);
 			this.dgv_ScheduleList.TabIndex = 13;
 			// 

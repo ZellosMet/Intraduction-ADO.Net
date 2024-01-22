@@ -40,6 +40,7 @@
 			this.l_CountStudents = new System.Windows.Forms.Label();
 			this.rb_ForGroup = new System.Windows.Forms.RadioButton();
 			this.rb_ForSpeciality = new System.Windows.Forms.RadioButton();
+			this.chkb_Archive = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_SudentsList)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -158,12 +159,13 @@
 			this.rb_ForGroup.TabStop = true;
 			this.rb_ForGroup.Text = "Отбор по группам";
 			this.rb_ForGroup.UseVisualStyleBackColor = true;
+			this.rb_ForGroup.CheckedChanged += new System.EventHandler(this.rb_ForGroup_CheckedChanged);
 			this.rb_ForGroup.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rb_ForGroup_MouseClick);
 			// 
 			// rb_ForSpeciality
 			// 
 			this.rb_ForSpeciality.AutoSize = true;
-			this.rb_ForSpeciality.Location = new System.Drawing.Point(193, 73);
+			this.rb_ForSpeciality.Location = new System.Drawing.Point(355, 73);
 			this.rb_ForSpeciality.Name = "rb_ForSpeciality";
 			this.rb_ForSpeciality.Size = new System.Drawing.Size(199, 20);
 			this.rb_ForSpeciality.TabIndex = 11;
@@ -172,11 +174,23 @@
 			this.rb_ForSpeciality.UseVisualStyleBackColor = true;
 			this.rb_ForSpeciality.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rb_ForSpeciality_MouseClick);
 			// 
+			// chkb_Archive
+			// 
+			this.chkb_Archive.AutoSize = true;
+			this.chkb_Archive.Location = new System.Drawing.Point(193, 74);
+			this.chkb_Archive.Name = "chkb_Archive";
+			this.chkb_Archive.Size = new System.Drawing.Size(137, 20);
+			this.chkb_Archive.TabIndex = 12;
+			this.chkb_Archive.Text = "Группы в архиве";
+			this.chkb_Archive.UseVisualStyleBackColor = true;
+			this.chkb_Archive.CheckedChanged += new System.EventHandler(this.chkb_Archive_CheckedChanged);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 545);
+			this.Controls.Add(this.chkb_Archive);
 			this.Controls.Add(this.rb_ForSpeciality);
 			this.Controls.Add(this.rb_ForGroup);
 			this.Controls.Add(this.l_CountStudents);
@@ -211,6 +225,7 @@
 		private System.Windows.Forms.Label l_CountStudents;
 		private System.Windows.Forms.RadioButton rb_ForGroup;
 		private System.Windows.Forms.RadioButton rb_ForSpeciality;
+		private System.Windows.Forms.CheckBox chkb_Archive;
 	}
 }
 

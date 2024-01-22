@@ -102,8 +102,10 @@
 			this.dgv_Attandances.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_Attandances.Location = new System.Drawing.Point(19, 205);
 			this.dgv_Attandances.Name = "dgv_Attandances";
+			this.dgv_Attandances.ReadOnly = true;
 			this.dgv_Attandances.RowHeadersWidth = 51;
 			this.dgv_Attandances.RowTemplate.Height = 24;
+			this.dgv_Attandances.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dgv_Attandances.Size = new System.Drawing.Size(611, 370);
 			this.dgv_Attandances.TabIndex = 5;
 			// 
@@ -114,8 +116,10 @@
 			this.dgv_Grades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_Grades.Location = new System.Drawing.Point(652, 205);
 			this.dgv_Grades.Name = "dgv_Grades";
+			this.dgv_Grades.ReadOnly = true;
 			this.dgv_Grades.RowHeadersWidth = 51;
 			this.dgv_Grades.RowTemplate.Height = 24;
+			this.dgv_Grades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dgv_Grades.Size = new System.Drawing.Size(473, 370);
 			this.dgv_Grades.TabIndex = 6;
 			// 

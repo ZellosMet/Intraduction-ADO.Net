@@ -183,8 +183,10 @@
 			this.dgv_StudentsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_StudentsList.Location = new System.Drawing.Point(413, 33);
 			this.dgv_StudentsList.Name = "dgv_StudentsList";
+			this.dgv_StudentsList.ReadOnly = true;
 			this.dgv_StudentsList.RowHeadersWidth = 51;
 			this.dgv_StudentsList.RowTemplate.Height = 24;
+			this.dgv_StudentsList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dgv_StudentsList.Size = new System.Drawing.Size(771, 359);
 			this.dgv_StudentsList.TabIndex = 17;
 			// 

@@ -219,7 +219,7 @@ namespace Academy
 				}
 				catch (Exception exc)
 				{
-					MessageBox.Show($"Не удалось добавить студента. Ошибка: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show($"Не удалось изменить студента. Ошибка: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				finally
 				{
