@@ -190,6 +190,7 @@ namespace Academy
 			cmd = new SqlCommand(command, connection);
 			connection.Open();
 			id_group = Convert.ToInt32(cmd.ExecuteScalar());
+			connection.Close();
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
