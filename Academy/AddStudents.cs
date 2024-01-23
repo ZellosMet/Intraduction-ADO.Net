@@ -69,7 +69,7 @@ namespace Academy
 			connection.Open();
 			id_group = Convert.ToInt32(cmd.ExecuteScalar());
 
-			///////////////////////////// Добавление фота
+			///////////////////////////// Добавление фото
 			byte[] photo;
 			FileStream fs = new FileStream(photo_path, FileMode.Open);
 			photo = new byte[fs.Length];
