@@ -22,15 +22,17 @@ namespace Academy
 		DataTable table;
 		void CloseConnection()
 		{ 
-			if(rdr != null) rdr.Close();
-			if(connection != null)connection.Close();
+			//if(rdr != null) rdr.Close();
+			//if(connection != null)connection.Close();
+			rdr?.Close();
+			connection?.Close();
 		}
 		public Form1()
 		{
 			InitializeComponent();
 			cb_CurrentGroup.DropDownStyle = ComboBoxStyle.DropDownList;
-			//connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
-			connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
+			connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
+			//connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
 			connection = new SqlConnection(connection_string);
 			rb_ForGroup.Checked = true;
 			chkb_Archive.Checked = false;

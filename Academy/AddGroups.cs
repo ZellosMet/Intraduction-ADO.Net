@@ -50,10 +50,8 @@ namespace Academy
 			rdr.Close();
 			connection.Close();
 		}
-
 		private void btn_AddGroup_Click(object sender, EventArgs e)
 		{
-			CloseConnection();
 			string command, group_name, direction_name;
 			int id_direction;
 			if (tb_GroupName.Text.Length == 0)
@@ -65,13 +63,14 @@ namespace Academy
 			cmd = new SqlCommand(command, connection);
 			connection.Open();
 			id_direction = Convert.ToInt32(cmd.ExecuteScalar());
+			connection.Close();
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
 				try
 				{
-					command = $@"INSERT INTO Groups (group_name, direction)
-							VALUES (@group_name, @direction)";
+					command = $@"INSERT INTO Groups (group_name, direction, archive)
+							VALUES (@group_name, @direction, '0')";
 					cmd = new SqlCommand(command, connection);
 					connection.Open();
 
@@ -79,7 +78,7 @@ namespace Academy
 					cmd.Parameters.Add("@direction", SqlDbType.SmallInt, 32).Value = id_direction;
 
 					cmd.ExecuteNonQuery();
-					l_AddResult.Text = "Студент успешно добавлен!";
+					l_AddResult.Text = "Группа успешно добавлена!";
 				}
 				catch (Exception exc)
 				{
@@ -87,7 +86,7 @@ namespace Academy
 				}
 				finally
 				{
-					connection.Close();
+					connection?.Close();
 				}
 			}
 			LoadData();
@@ -95,7 +94,6 @@ namespace Academy
 
 		void LoadData()
 		{
-			CloseConnection();
 			string commandLine = $@"
 			SELECT [Группа] = group_name, [Направление] = direction_name, [Архив] = IIF(Groups.archive = 1, 'В архиве', 'Не в архиве')
 			FROM Groups, Directions
@@ -114,30 +112,23 @@ namespace Academy
 				table.Rows.Add(row);
 			}
 			dgv_GroupList.DataSource = table;
-
-			CloseConnection();
-		}
-		void CloseConnection()
-		{
-			if (rdr != null) rdr.Close();
-			if (connection != null) connection.Close();
+			connection.Close();
 		}
 		private void dgv_GroupList_CellClick(object sender,DataGridViewCellEventArgs e)
 		{
 			btn_UpdateGroup.Enabled = true;
-			tb_NewGroupName.Text = dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[0].Value.ToString();
+			tb_NewGroupName.Text = dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[0].Value.ToString().Trim();
 			cb_NewDirection.SelectedIndex = cb_NewDirection.FindString(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[1].Value.ToString());
 			if(!(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[2].Value.ToString() == "Не в архиве"))
 				chkb_Archive.Checked = true;
 			else
 				chkb_Archive.Checked = false;
 
-			string command = $@"SELECT group_id FROM Groups WHERE Groups.group_name LIKE '{tb_NewGroupName.Text}'";
+			string command = $@"(SELECT group_id FROM Groups WHERE Groups.group_name='{tb_NewGroupName.Text}')";
 			cmd = new SqlCommand(command, connection);
 			connection.Open();
 			id_group = Convert.ToInt32(cmd.ExecuteScalar());
 			connection.Close();
-
 		}
 		private void btn_UpdateGroup_Click(object sender, EventArgs e)
 		{
@@ -175,6 +166,7 @@ namespace Academy
 			cmd = new SqlCommand(command, connection);
 			connection.Open();
 			id_direction = Convert.ToInt32(cmd.ExecuteScalar());
+			connection.Close();
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
@@ -200,8 +192,8 @@ namespace Academy
 				}
 				finally
 				{
-					rdr.Close();
-					connection.Close();
+					rdr?.Close();
+					connection?.Close();
 				}
 				LoadData();
 			}
