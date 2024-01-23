@@ -25,7 +25,7 @@ namespace Academy
 		SqlDataReader rdr;
 		DataTable table;
 		string default_photo = "C:\\ProgramDatа\\LocalProject\\C#\\Intraduction-ADO.Net\\Academy\\photo\\default.png";
-		string photo_path;
+		string photo_path = string.Empty;
 		public AddStudents(SqlConnection connection, string connection_string)
 		{
 			InitializeComponent();
@@ -72,6 +72,8 @@ namespace Academy
 
 			///////////////////////////// Добавление фото
 			byte[] photo;
+			//if(photo_path.Length== 0) photo_path = default_photo;
+			if(photo_path.Length== 0) photo_path = "C:\\ProgramDatа\\LocalProject\\C#\\Intraduction-ADO.Net\\Academy\\photo\\not_photo.png";
 			FileStream fs = new FileStream(photo_path, FileMode.Open);
 			photo = new byte[fs.Length];
 			fs.Read(photo, 0, photo.Length);
@@ -136,7 +138,6 @@ namespace Academy
 		{
 			if (ofd_AddPhoto.ShowDialog() == DialogResult.OK)
 				photo_path = ofd_AddPhoto.FileName;
-			else photo_path = default_photo;
 			pb_AddPhoto.Image = Image.FromFile(photo_path);
 		}
 	}
