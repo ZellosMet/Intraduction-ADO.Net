@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Academy
 {
@@ -21,8 +24,8 @@ namespace Academy
 		SqlCommand cmd;
 		SqlDataReader rdr;
 		DataTable table;
-		string path_photo = string.Empty;
-
+		string default_photo = "C:\\ProgramDatа\\LocalProject\\C#\\Intraduction-ADO.Net\\Academy\\photo\\default.png";
+		string photo_path;
 		public AddStudents(SqlConnection connection, string connection_string)
 		{
 			InitializeComponent();
@@ -33,6 +36,8 @@ namespace Academy
 			cb_Groups.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtp_BirthDate.Format = DateTimePickerFormat.Custom;
 			dtp_BirthDate.CustomFormat = "yyy-MM-dd";
+			ofd_AddPhoto.Filter = "Image file (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png|All files (*.*)|*.*";
+			pb_AddPhoto.Image = Image.FromFile(default_photo);
 			LoadData();
 		}
 		void LoadGroupsToComboBox()
@@ -64,12 +69,19 @@ namespace Academy
 			connection.Open();
 			id_group = Convert.ToInt32(cmd.ExecuteScalar());
 
+			///////////////////////////// Добавление фота
+			byte[] photo;
+			FileStream fs = new FileStream(photo_path, FileMode.Open);
+			photo = new byte[fs.Length];
+			fs.Read(photo, 0, photo.Length);
+			fs.Close();
+
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
 				try 
 				{
-					command = $@"INSERT INTO Students (last_name, first_name, middle_name, birth_date, [group])
-							VALUES (@last_name, @first_name, @middle_name, @birth_date, @id_group)";
+					command = $@"INSERT INTO Students (last_name, first_name, middle_name, birth_date, [group], photo)
+							VALUES (@last_name, @first_name, @middle_name, @birth_date, @id_group, @photo)";
 					cmd = new SqlCommand(command, connection);
 					connection.Open();
 
@@ -78,6 +90,7 @@ namespace Academy
 					cmd.Parameters.Add("@middle_name", SqlDbType.NVarChar, 32).Value = middle_name;
 					cmd.Parameters.Add("@birth_date", SqlDbType.Date).Value = birth_date;
 					cmd.Parameters.Add("@id_group", SqlDbType.Int).Value = id_group;
+					cmd.Parameters.Add("@photo", SqlDbType.Image, 1000000).Value = photo;
 
 					cmd.ExecuteNonQuery();
 					l_AddResult.Text = "Студент успешно добавлен!";
@@ -122,6 +135,14 @@ namespace Academy
 		{
 			if (rdr != null) rdr.Close();
 			if (connection != null) connection.Close();
+		}
+
+		private void btn_AddPhoto_Click(object sender, EventArgs e)
+		{
+			if (ofd_AddPhoto.ShowDialog() == DialogResult.OK)
+				photo_path = ofd_AddPhoto.FileName;
+			else photo_path = default_photo;
+			pb_AddPhoto.Image = Image.FromFile(photo_path);
 		}
 	}
 }

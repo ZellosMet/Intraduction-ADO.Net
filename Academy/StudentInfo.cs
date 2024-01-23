@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -12,6 +11,10 @@ using System.Windows.Forms;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
+using System.Collections;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Academy
 {
@@ -23,12 +26,14 @@ namespace Academy
 		SqlCommand cmd;
 		SqlDataReader rdr;
 		DataTable table;
+		string default_photo = "C:\\ProgramDatа\\LocalProject\\C#\\Intraduction-ADO.Net\\Academy\\photo\\default.png";
 		public StudentInfo(SqlConnection connection, string connection_string, string last_name, string first_name, string middle_name)
 		{
 			InitializeComponent();
 			cb_NewGroup.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtp_NewBirthDate.Format = DateTimePickerFormat.Custom;
 			dtp_NewBirthDate.CustomFormat = "yyy-MM-dd";
+			pb_Photo.Image = Image.FromFile(default_photo);
 
 			tb_NewFirstName.Visible = false;
 			tb_NewLastName.Visible = false;
@@ -75,6 +80,19 @@ namespace Academy
 
 			l_Group.Text = $"Группа: {group}";
 
+			byte[] photo = null;
+			command = $@"SELECT photo FROM Students WHERE Students.stud_id = '{id_student}'";
+			cmd = new SqlCommand(command, connection);
+			rdr = cmd.ExecuteReader();
+
+			while (rdr.Read())
+				photo = (byte[])rdr[0];
+
+				MemoryStream ms = new MemoryStream(photo);
+				Image img = Image.FromStream(ms);
+				pb_Photo.Image = img;
+
+			rdr.Close();
 			connection.Close();
 
 			LoadTablesToComboBox();
@@ -120,8 +138,6 @@ namespace Academy
 
 			connection.Close();
 		}
-
-
 		void LoadDataAttendance(int id_student)
 		{
 			string commandLine = $@"SELECT [Предмет] = Disciplines.discipline_name, [Дата] = Schedule.[date], [Успеваемость] = IIF(Attendance.present = 1, 'Присутствовал', 'Отсутствовал')

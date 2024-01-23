@@ -46,8 +46,10 @@
 			this.btn_Save = new System.Windows.Forms.Button();
 			this.btn_Cancel = new System.Windows.Forms.Button();
 			this.l_UpdateResult = new System.Windows.Forms.Label();
+			this.pb_Photo = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_Attandances)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_Grades)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pb_Photo)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// l_FirstName
@@ -145,7 +147,7 @@
 			// 
 			// btn_UpdateStudent
 			// 
-			this.btn_UpdateStudent.Location = new System.Drawing.Point(652, 10);
+			this.btn_UpdateStudent.Location = new System.Drawing.Point(879, 10);
 			this.btn_UpdateStudent.Name = "btn_UpdateStudent";
 			this.btn_UpdateStudent.Size = new System.Drawing.Size(204, 26);
 			this.btn_UpdateStudent.TabIndex = 9;
@@ -155,28 +157,28 @@
 			// 
 			// tb_NewFirstName
 			// 
-			this.tb_NewFirstName.Location = new System.Drawing.Point(428, 10);
+			this.tb_NewFirstName.Location = new System.Drawing.Point(655, 10);
 			this.tb_NewFirstName.Name = "tb_NewFirstName";
 			this.tb_NewFirstName.Size = new System.Drawing.Size(201, 22);
 			this.tb_NewFirstName.TabIndex = 10;
 			// 
 			// tb_NewLastName
 			// 
-			this.tb_NewLastName.Location = new System.Drawing.Point(428, 42);
+			this.tb_NewLastName.Location = new System.Drawing.Point(655, 42);
 			this.tb_NewLastName.Name = "tb_NewLastName";
 			this.tb_NewLastName.Size = new System.Drawing.Size(201, 22);
 			this.tb_NewLastName.TabIndex = 11;
 			// 
 			// tb_NewMiddleName
 			// 
-			this.tb_NewMiddleName.Location = new System.Drawing.Point(428, 72);
+			this.tb_NewMiddleName.Location = new System.Drawing.Point(655, 72);
 			this.tb_NewMiddleName.Name = "tb_NewMiddleName";
 			this.tb_NewMiddleName.Size = new System.Drawing.Size(201, 22);
 			this.tb_NewMiddleName.TabIndex = 12;
 			// 
 			// dtp_NewBirthDate
 			// 
-			this.dtp_NewBirthDate.Location = new System.Drawing.Point(428, 104);
+			this.dtp_NewBirthDate.Location = new System.Drawing.Point(655, 104);
 			this.dtp_NewBirthDate.Name = "dtp_NewBirthDate";
 			this.dtp_NewBirthDate.Size = new System.Drawing.Size(200, 22);
 			this.dtp_NewBirthDate.TabIndex = 13;
@@ -184,14 +186,14 @@
 			// cb_NewGroup
 			// 
 			this.cb_NewGroup.FormattingEnabled = true;
-			this.cb_NewGroup.Location = new System.Drawing.Point(428, 142);
+			this.cb_NewGroup.Location = new System.Drawing.Point(655, 142);
 			this.cb_NewGroup.Name = "cb_NewGroup";
 			this.cb_NewGroup.Size = new System.Drawing.Size(200, 24);
 			this.cb_NewGroup.TabIndex = 14;
 			// 
 			// btn_Save
 			// 
-			this.btn_Save.Location = new System.Drawing.Point(652, 42);
+			this.btn_Save.Location = new System.Drawing.Point(879, 42);
 			this.btn_Save.Name = "btn_Save";
 			this.btn_Save.Size = new System.Drawing.Size(204, 23);
 			this.btn_Save.TabIndex = 15;
@@ -201,7 +203,7 @@
 			// 
 			// btn_Cancel
 			// 
-			this.btn_Cancel.Location = new System.Drawing.Point(652, 71);
+			this.btn_Cancel.Location = new System.Drawing.Point(879, 71);
 			this.btn_Cancel.Name = "btn_Cancel";
 			this.btn_Cancel.Size = new System.Drawing.Size(204, 23);
 			this.btn_Cancel.TabIndex = 16;
@@ -212,16 +214,26 @@
 			// l_UpdateResult
 			// 
 			this.l_UpdateResult.AutoSize = true;
-			this.l_UpdateResult.Location = new System.Drawing.Point(652, 104);
+			this.l_UpdateResult.Location = new System.Drawing.Point(879, 104);
 			this.l_UpdateResult.Name = "l_UpdateResult";
 			this.l_UpdateResult.Size = new System.Drawing.Size(0, 16);
 			this.l_UpdateResult.TabIndex = 17;
+			// 
+			// pb_Photo
+			// 
+			this.pb_Photo.Location = new System.Drawing.Point(458, 10);
+			this.pb_Photo.Name = "pb_Photo";
+			this.pb_Photo.Size = new System.Drawing.Size(172, 156);
+			this.pb_Photo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pb_Photo.TabIndex = 18;
+			this.pb_Photo.TabStop = false;
 			// 
 			// StudentInfo
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1143, 598);
+			this.Controls.Add(this.pb_Photo);
 			this.Controls.Add(this.l_UpdateResult);
 			this.Controls.Add(this.btn_Cancel);
 			this.Controls.Add(this.btn_Save);
@@ -244,6 +256,7 @@
 			this.Text = "StudentInfo";
 			((System.ComponentModel.ISupportInitialize)(this.dgv_Attandances)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_Grades)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pb_Photo)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -269,5 +282,6 @@
 		private System.Windows.Forms.Button btn_Save;
 		private System.Windows.Forms.Button btn_Cancel;
 		private System.Windows.Forms.Label l_UpdateResult;
+		private System.Windows.Forms.PictureBox pb_Photo;
 	}
 }

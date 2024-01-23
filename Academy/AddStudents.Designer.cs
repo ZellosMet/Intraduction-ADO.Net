@@ -43,7 +43,9 @@
 			this.label5 = new System.Windows.Forms.Label();
 			this.l_AddResult = new System.Windows.Forms.Label();
 			this.dgv_StudentsList = new System.Windows.Forms.DataGridView();
+			this.pb_AddPhoto = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_StudentsList)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pb_AddPhoto)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tb_FirsName
@@ -53,7 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_FirsName.Location = new System.Drawing.Point(13, 33);
 			this.tb_FirsName.Name = "tb_FirsName";
-			this.tb_FirsName.Size = new System.Drawing.Size(373, 22);
+			this.tb_FirsName.Size = new System.Drawing.Size(456, 22);
 			this.tb_FirsName.TabIndex = 0;
 			// 
 			// cb_Groups
@@ -64,7 +66,7 @@
 			this.cb_Groups.FormattingEnabled = true;
 			this.cb_Groups.Location = new System.Drawing.Point(13, 258);
 			this.cb_Groups.Name = "cb_Groups";
-			this.cb_Groups.Size = new System.Drawing.Size(373, 24);
+			this.cb_Groups.Size = new System.Drawing.Size(456, 24);
 			this.cb_Groups.TabIndex = 4;
 			// 
 			// tb_MiddleName
@@ -74,7 +76,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_MiddleName.Location = new System.Drawing.Point(13, 144);
 			this.tb_MiddleName.Name = "tb_MiddleName";
-			this.tb_MiddleName.Size = new System.Drawing.Size(373, 22);
+			this.tb_MiddleName.Size = new System.Drawing.Size(456, 22);
 			this.tb_MiddleName.TabIndex = 6;
 			// 
 			// tb_LastName
@@ -84,25 +86,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tb_LastName.Location = new System.Drawing.Point(13, 86);
 			this.tb_LastName.Name = "tb_LastName";
-			this.tb_LastName.Size = new System.Drawing.Size(373, 22);
+			this.tb_LastName.Size = new System.Drawing.Size(456, 22);
 			this.tb_LastName.TabIndex = 7;
-			// 
-			// ofd_AddPhoto
-			// 
-			this.ofd_AddPhoto.FileName = "openFileDialog1";
 			// 
 			// btn_AddPhoto
 			// 
-			this.btn_AddPhoto.Location = new System.Drawing.Point(13, 288);
+			this.btn_AddPhoto.Location = new System.Drawing.Point(12, 297);
 			this.btn_AddPhoto.Name = "btn_AddPhoto";
-			this.btn_AddPhoto.Size = new System.Drawing.Size(158, 42);
+			this.btn_AddPhoto.Size = new System.Drawing.Size(204, 42);
 			this.btn_AddPhoto.TabIndex = 8;
 			this.btn_AddPhoto.Text = "Добавить фотографию";
 			this.btn_AddPhoto.UseVisualStyleBackColor = true;
+			this.btn_AddPhoto.Click += new System.EventHandler(this.btn_AddPhoto_Click);
 			// 
 			// btn_Add
 			// 
-			this.btn_Add.Location = new System.Drawing.Point(13, 357);
+			this.btn_Add.Location = new System.Drawing.Point(16, 595);
 			this.btn_Add.Name = "btn_Add";
 			this.btn_Add.Size = new System.Drawing.Size(158, 25);
 			this.btn_Add.TabIndex = 9;
@@ -117,7 +116,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dtp_BirthDate.Location = new System.Drawing.Point(13, 199);
 			this.dtp_BirthDate.Name = "dtp_BirthDate";
-			this.dtp_BirthDate.Size = new System.Drawing.Size(373, 22);
+			this.dtp_BirthDate.Size = new System.Drawing.Size(456, 22);
 			this.dtp_BirthDate.TabIndex = 10;
 			// 
 			// label1
@@ -171,7 +170,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.l_AddResult.AutoSize = true;
-			this.l_AddResult.Location = new System.Drawing.Point(189, 366);
+			this.l_AddResult.Location = new System.Drawing.Point(192, 604);
 			this.l_AddResult.Name = "l_AddResult";
 			this.l_AddResult.Size = new System.Drawing.Size(0, 16);
 			this.l_AddResult.TabIndex = 16;
@@ -181,20 +180,30 @@
 			this.dgv_StudentsList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgv_StudentsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgv_StudentsList.Location = new System.Drawing.Point(413, 33);
+			this.dgv_StudentsList.Location = new System.Drawing.Point(496, 33);
 			this.dgv_StudentsList.Name = "dgv_StudentsList";
 			this.dgv_StudentsList.ReadOnly = true;
 			this.dgv_StudentsList.RowHeadersWidth = 51;
 			this.dgv_StudentsList.RowTemplate.Height = 24;
 			this.dgv_StudentsList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgv_StudentsList.Size = new System.Drawing.Size(771, 359);
+			this.dgv_StudentsList.Size = new System.Drawing.Size(771, 600);
 			this.dgv_StudentsList.TabIndex = 17;
+			// 
+			// pb_AddPhoto
+			// 
+			this.pb_AddPhoto.Location = new System.Drawing.Point(13, 354);
+			this.pb_AddPhoto.Name = "pb_AddPhoto";
+			this.pb_AddPhoto.Size = new System.Drawing.Size(204, 214);
+			this.pb_AddPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pb_AddPhoto.TabIndex = 18;
+			this.pb_AddPhoto.TabStop = false;
 			// 
 			// AddStudents
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1197, 404);
+			this.ClientSize = new System.Drawing.Size(1280, 645);
+			this.Controls.Add(this.pb_AddPhoto);
 			this.Controls.Add(this.dgv_StudentsList);
 			this.Controls.Add(this.l_AddResult);
 			this.Controls.Add(this.label5);
@@ -212,6 +221,7 @@
 			this.Name = "AddStudents";
 			this.Text = "AddStudents";
 			((System.ComponentModel.ISupportInitialize)(this.dgv_StudentsList)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pb_AddPhoto)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -234,5 +244,6 @@
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label l_AddResult;
 		private System.Windows.Forms.DataGridView dgv_StudentsList;
+		private System.Windows.Forms.PictureBox pb_AddPhoto;
 	}
 }
