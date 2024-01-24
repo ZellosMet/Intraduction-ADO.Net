@@ -103,7 +103,7 @@
 			// 
 			this.btn_Add.Location = new System.Drawing.Point(16, 595);
 			this.btn_Add.Name = "btn_Add";
-			this.btn_Add.Size = new System.Drawing.Size(158, 25);
+			this.btn_Add.Size = new System.Drawing.Size(201, 32);
 			this.btn_Add.TabIndex = 9;
 			this.btn_Add.Text = "Добавить студента";
 			this.btn_Add.UseVisualStyleBackColor = true;
@@ -170,7 +170,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.l_AddResult.AutoSize = true;
-			this.l_AddResult.Location = new System.Drawing.Point(192, 604);
+			this.l_AddResult.Location = new System.Drawing.Point(227, 604);
 			this.l_AddResult.Name = "l_AddResult";
 			this.l_AddResult.Size = new System.Drawing.Size(0, 16);
 			this.l_AddResult.TabIndex = 16;
@@ -186,7 +186,7 @@
 			this.dgv_StudentsList.RowHeadersWidth = 51;
 			this.dgv_StudentsList.RowTemplate.Height = 24;
 			this.dgv_StudentsList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgv_StudentsList.Size = new System.Drawing.Size(771, 600);
+			this.dgv_StudentsList.Size = new System.Drawing.Size(771, 593);
 			this.dgv_StudentsList.TabIndex = 17;
 			// 
 			// pb_AddPhoto
@@ -202,7 +202,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1280, 645);
+			this.ClientSize = new System.Drawing.Size(1280, 638);
 			this.Controls.Add(this.pb_AddPhoto);
 			this.Controls.Add(this.dgv_StudentsList);
 			this.Controls.Add(this.l_AddResult);

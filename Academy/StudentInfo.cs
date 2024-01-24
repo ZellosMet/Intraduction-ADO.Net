@@ -15,6 +15,7 @@ using System.IO;
 using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Security.Cryptography;
 
 namespace Academy
 {
@@ -22,18 +23,20 @@ namespace Academy
 	{
 		string connection_string, last_name, first_name, middle_name;
 		int id_student;
+		byte[] data_photo = null;
 		SqlConnection connection;
 		SqlCommand cmd;
 		SqlDataReader rdr;
 		DataTable table;
-		string default_photo = "C:\\ProgramDatа\\LocalProject\\C#\\Intraduction-ADO.Net\\Academy\\photo\\default.png";
+		string photo_path = "C:\\ProgramDatа\\LocalProject\\C#\\Intraduction-ADO.Net\\Academy\\photo\\not_photo.png";
 		public StudentInfo(SqlConnection connection, string connection_string, string last_name, string first_name, string middle_name)
 		{
 			InitializeComponent();
 			cb_NewGroup.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtp_NewBirthDate.Format = DateTimePickerFormat.Custom;
 			dtp_NewBirthDate.CustomFormat = "yyy-MM-dd";
-			pb_Photo.Image = Image.FromFile(default_photo);
+			pb_Photo.Image = Properties.Resources._default;
+			ofd_NewPhoto.Filter = "Image file (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png|All files (*.*)|*.*";
 
 			tb_NewFirstName.Visible = false;
 			tb_NewLastName.Visible = false;
@@ -42,6 +45,7 @@ namespace Academy
 			cb_NewGroup.Visible = false;
 			btn_Cancel.Visible = false;
 			btn_Save.Visible = false;
+			btn_NewPhoto.Visible = false;
 			l_UpdateResult.Visible = false;
 
 			this.connection = connection;
@@ -80,15 +84,13 @@ namespace Academy
 
 			l_Group.Text = $"Группа: {group}";
 
-			byte[] photo = null;
 			command = $@"SELECT photo FROM Students WHERE Students.stud_id = '{id_student}'";
 			cmd = new SqlCommand(command, connection);
 			rdr = cmd.ExecuteReader();
 
 			while (rdr.Read())
-				photo = (byte[])rdr[0];
-
-				MemoryStream ms = new MemoryStream(photo);
+				data_photo = (byte[])rdr[0];
+				MemoryStream ms = new MemoryStream(data_photo);
 				Image img = Image.FromStream(ms);
 				pb_Photo.Image = img;
 
@@ -167,6 +169,29 @@ namespace Academy
 
 			connection.Close();
 		}
+
+		private void btn_NewPhoto_Click(object sender, EventArgs e)
+		{
+			if (ofd_NewPhoto.ShowDialog() == DialogResult.OK)
+				photo_path = ofd_NewPhoto.FileName;
+
+			FileStream fs = new FileStream(photo_path, FileMode.Open);
+			data_photo = new byte[fs.Length];
+			fs.Read(data_photo, 0, data_photo.Length);
+			fs.Close();
+
+			pb_Photo.Image = Image.FromFile(photo_path);
+		}
+		private void btn_Delete_Click(object sender, EventArgs e)
+		{
+			DialogResult dr_delete = MessageBox.Show("Удалить?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+			if (dr_delete == DialogResult.Yes)
+			{ 
+				DeleteStudent();
+				this.Close();			
+			}
+		}
+
 		private void btn_UpdateStudent_Click(object sender, EventArgs e)
 		{
 			tb_NewFirstName.Visible = true;
@@ -176,6 +201,7 @@ namespace Academy
 			cb_NewGroup.Visible = true;
 			btn_Cancel.Visible = true;
 			btn_Save.Visible = true;
+			btn_NewPhoto.Visible = true;
 			l_UpdateResult.Visible = true;
 		}
 		private void btn_Cancel_Click(object sender, EventArgs e)
@@ -187,6 +213,7 @@ namespace Academy
 			cb_NewGroup.Visible = false;
 			btn_Cancel.Visible = false;
 			btn_Save.Visible = false;
+			btn_NewPhoto.Visible=false;
 			l_UpdateResult.Visible = false;
 		}
 		private void btn_Save_Click(object sender, EventArgs e)
@@ -213,7 +240,7 @@ namespace Academy
 				try
 				{
 					command = $@"UPDATE Students 
-								SET last_name = @last_name, first_name = @first_name, middle_name = @middle_name, birth_date = @birth_date, [group] = @id_group
+								SET last_name = @last_name, first_name = @first_name, middle_name = @middle_name, birth_date = @birth_date, [group] = @id_group, photo = @photo
 								WHERE stud_id = @id_student";
 					cmd = new SqlCommand(command, connection);
 					connection.Open();
@@ -224,6 +251,7 @@ namespace Academy
 					cmd.Parameters.Add("@birth_date", SqlDbType.Date).Value = birth_date;
 					cmd.Parameters.Add("@id_group", SqlDbType.Int).Value = id_group;
 					cmd.Parameters.Add("@id_student", SqlDbType.Int).Value = id_student;
+					cmd.Parameters.Add("@photo", SqlDbType.Image, 1000000).Value = data_photo;
 
 					cmd.ExecuteNonQuery();
 					l_UpdateResult.Text = "Студент успешно изменён!";
@@ -244,6 +272,14 @@ namespace Academy
 					connection?.Close();
 				}
 			}
+		}
+		void DeleteStudent()
+		{
+			string command = $@"DELETE FROM Students WHERE Students.stud_id = '{id_student}'";
+			cmd = new SqlCommand(command, connection);
+			connection.Open();
+			cmd.ExecuteNonQuery();
+			connection.Close();
 		}
 	}
 }

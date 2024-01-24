@@ -22,8 +22,6 @@ namespace Academy
 		DataTable table;
 		void CloseConnection()
 		{ 
-			//if(rdr != null) rdr.Close();
-			//if(connection != null)connection.Close();
 			rdr?.Close();
 			connection?.Close();
 		}
@@ -141,6 +139,7 @@ namespace Academy
 			CloseConnection();
 			AddStudents add_students = new AddStudents(connection, connection_string);
 			add_students.ShowDialog();
+			cb_CurrentGroup_SelectedIndexChanged(sender, e);
 		}
 		private void btn_AddGroups_Click(object sender, EventArgs e)
 		{
@@ -159,7 +158,8 @@ namespace Academy
 
 		private void tb_Search_TextChanged(object sender, EventArgs e)
 		{
-			(dgv_SudentsList.DataSource as DataTable).DefaultView.RowFilter = $"Фамилия LIKE '{tb_Search.Text}%'";
+			(dgv_SudentsList.DataSource as DataTable).DefaultView.RowFilter = $"Фамилия LIKE '{tb_Search.Text}%' OR Имя LIKE '{tb_Search.Text}%' OR Отчество LIKE '{tb_Search.Text}%'";
+			l_CountStudents.Text = $"Количество студентов: {dgv_SudentsList.RowCount - 1}";
 		}
 
 		private void dgv_SudentsList_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -172,7 +172,8 @@ namespace Academy
 
 			CloseConnection();
 			StudentInfo stud_info = new StudentInfo(connection, connection_string, last_name, first_name, middle_name);
-			stud_info.ShowDialog();		
+			stud_info.ShowDialog();
+			cb_CurrentGroup_SelectedIndexChanged(sender, e);
 		}
 
 		private void rb_ForGroup_MouseClick(object sender, MouseEventArgs e)

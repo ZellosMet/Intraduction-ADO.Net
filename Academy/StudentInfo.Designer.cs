@@ -47,6 +47,9 @@
 			this.btn_Cancel = new System.Windows.Forms.Button();
 			this.l_UpdateResult = new System.Windows.Forms.Label();
 			this.pb_Photo = new System.Windows.Forms.PictureBox();
+			this.btn_NewPhoto = new System.Windows.Forms.Button();
+			this.ofd_NewPhoto = new System.Windows.Forms.OpenFileDialog();
+			this.btn_Delete = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_Attandances)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_Grades)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pb_Photo)).BeginInit();
@@ -102,13 +105,13 @@
 			this.dgv_Attandances.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.dgv_Attandances.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgv_Attandances.Location = new System.Drawing.Point(19, 205);
+			this.dgv_Attandances.Location = new System.Drawing.Point(19, 232);
 			this.dgv_Attandances.Name = "dgv_Attandances";
 			this.dgv_Attandances.ReadOnly = true;
 			this.dgv_Attandances.RowHeadersWidth = 51;
 			this.dgv_Attandances.RowTemplate.Height = 24;
 			this.dgv_Attandances.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgv_Attandances.Size = new System.Drawing.Size(611, 370);
+			this.dgv_Attandances.Size = new System.Drawing.Size(611, 417);
 			this.dgv_Attandances.TabIndex = 5;
 			// 
 			// dgv_Grades
@@ -116,19 +119,19 @@
 			this.dgv_Grades.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgv_Grades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgv_Grades.Location = new System.Drawing.Point(652, 205);
+			this.dgv_Grades.Location = new System.Drawing.Point(652, 232);
 			this.dgv_Grades.Name = "dgv_Grades";
 			this.dgv_Grades.ReadOnly = true;
 			this.dgv_Grades.RowHeadersWidth = 51;
 			this.dgv_Grades.RowTemplate.Height = 24;
 			this.dgv_Grades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgv_Grades.Size = new System.Drawing.Size(473, 370);
+			this.dgv_Grades.Size = new System.Drawing.Size(473, 417);
 			this.dgv_Grades.TabIndex = 6;
 			// 
 			// l_Attendances
 			// 
 			this.l_Attendances.AutoSize = true;
-			this.l_Attendances.Location = new System.Drawing.Point(19, 183);
+			this.l_Attendances.Location = new System.Drawing.Point(16, 213);
 			this.l_Attendances.Name = "l_Attendances";
 			this.l_Attendances.Size = new System.Drawing.Size(103, 16);
 			this.l_Attendances.TabIndex = 7;
@@ -139,7 +142,7 @@
 			this.l_Grades.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.l_Grades.AutoSize = true;
-			this.l_Grades.Location = new System.Drawing.Point(652, 182);
+			this.l_Grades.Location = new System.Drawing.Point(652, 213);
 			this.l_Grades.Name = "l_Grades";
 			this.l_Grades.Size = new System.Drawing.Size(101, 16);
 			this.l_Grades.TabIndex = 8;
@@ -186,7 +189,7 @@
 			// cb_NewGroup
 			// 
 			this.cb_NewGroup.FormattingEnabled = true;
-			this.cb_NewGroup.Location = new System.Drawing.Point(655, 142);
+			this.cb_NewGroup.Location = new System.Drawing.Point(655, 139);
 			this.cb_NewGroup.Name = "cb_NewGroup";
 			this.cb_NewGroup.Size = new System.Drawing.Size(200, 24);
 			this.cb_NewGroup.TabIndex = 14;
@@ -223,16 +226,38 @@
 			// 
 			this.pb_Photo.Location = new System.Drawing.Point(458, 10);
 			this.pb_Photo.Name = "pb_Photo";
-			this.pb_Photo.Size = new System.Drawing.Size(172, 156);
+			this.pb_Photo.Size = new System.Drawing.Size(172, 200);
 			this.pb_Photo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pb_Photo.TabIndex = 18;
 			this.pb_Photo.TabStop = false;
+			// 
+			// btn_NewPhoto
+			// 
+			this.btn_NewPhoto.Location = new System.Drawing.Point(655, 179);
+			this.btn_NewPhoto.Name = "btn_NewPhoto";
+			this.btn_NewPhoto.Size = new System.Drawing.Size(201, 31);
+			this.btn_NewPhoto.TabIndex = 19;
+			this.btn_NewPhoto.Text = "Добавить фото";
+			this.btn_NewPhoto.UseVisualStyleBackColor = true;
+			this.btn_NewPhoto.Click += new System.EventHandler(this.btn_NewPhoto_Click);
+			// 
+			// btn_Delete
+			// 
+			this.btn_Delete.Location = new System.Drawing.Point(879, 179);
+			this.btn_Delete.Name = "btn_Delete";
+			this.btn_Delete.Size = new System.Drawing.Size(204, 31);
+			this.btn_Delete.TabIndex = 20;
+			this.btn_Delete.Text = "Удалить студента";
+			this.btn_Delete.UseVisualStyleBackColor = true;
+			this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
 			// 
 			// StudentInfo
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1143, 598);
+			this.ClientSize = new System.Drawing.Size(1143, 672);
+			this.Controls.Add(this.btn_Delete);
+			this.Controls.Add(this.btn_NewPhoto);
 			this.Controls.Add(this.pb_Photo);
 			this.Controls.Add(this.l_UpdateResult);
 			this.Controls.Add(this.btn_Cancel);
@@ -283,5 +308,8 @@
 		private System.Windows.Forms.Button btn_Cancel;
 		private System.Windows.Forms.Label l_UpdateResult;
 		private System.Windows.Forms.PictureBox pb_Photo;
+		private System.Windows.Forms.Button btn_NewPhoto;
+		private System.Windows.Forms.OpenFileDialog ofd_NewPhoto;
+		private System.Windows.Forms.Button btn_Delete;
 	}
 }
