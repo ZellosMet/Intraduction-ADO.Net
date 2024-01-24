@@ -20,11 +20,6 @@ namespace Academy
 		SqlConnection connection;
 		SqlDataReader rdr;
 		DataTable table;
-		void CloseConnection()
-		{ 
-			rdr?.Close();
-			connection?.Close();
-		}
 		public Form1()
 		{
 			InitializeComponent();
@@ -43,6 +38,7 @@ namespace Academy
 			if (selection == "group")
 			{
 				cb_CurrentGroup.Items.Add("");
+
 				if(chkb_Archive.Checked)
 					commandLine = @"SELECT group_name FROM Groups WHERE Groups.archive = 1";
 				else
@@ -57,11 +53,11 @@ namespace Academy
 				cb_CurrentGroup.Items.Add(rdr[0]);
 			rdr.Close();
 			connection.Close();
+
 			if(selection == "group")
 				commandLine = $@"SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name FROM Students";
 			else
-				commandLine = $@"
-								SELECT [Фамилия] = Students.last_name, [Имя] = Students.first_name, [Отчество] = Students.middle_name
+				commandLine = $@"SELECT [Фамилия] = Students.last_name, [Имя] = Students.first_name, [Отчество] = Students.middle_name
 								FROM Students, Groups, Directions, Specialites, SpecialitesDirectionRelation
 								WHERE Students.[group] = Groups.group_id
 								AND Groups.direction = Directions.direction_id
@@ -100,14 +96,12 @@ namespace Academy
 			{
 				if (cb_CurrentGroup.Text.Length == 0)
 				{
-					commandLine = $@"
-									SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name
+					commandLine = $@"SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name
 									FROM Students";
 				}
 				else
 				{
-					commandLine = $@"
-									SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name
+					commandLine = $@"SELECT [Фамилия] = last_name, [Имя] = first_name, [Отчество] = middle_name
 									FROM Groups, Students
 									WHERE Groups.group_name = '{cb_CurrentGroup.SelectedItem}'
 									AND Groups.group_id = Students.[group]";
@@ -115,8 +109,7 @@ namespace Academy
 			}
 			else
 			{
-				commandLine = $@"
-								SELECT [Фамилия] = Students.last_name, [Имя] = Students.first_name, [Отчество] = Students.middle_name
+				commandLine = $@"SELECT [Фамилия] = Students.last_name, [Имя] = Students.first_name, [Отчество] = Students.middle_name
 								FROM Students, Groups, Directions, Specialites, SpecialitesDirectionRelation
 								WHERE Students.[group] = Groups.group_id
 								AND Groups.direction = Directions.direction_id
@@ -129,21 +122,18 @@ namespace Academy
 		}
 		private void btn_Refresh_Click(object sender, EventArgs e)
 		{
-			CloseConnection();
 			if (dgv_SudentsList.RowCount == 0) return;
 			cb_CurrentGroup_SelectedIndexChanged(sender, e);
 		}
 
 		private void btn_AddStudents_Click(object sender, EventArgs e)
 		{
-			CloseConnection();
 			AddStudents add_students = new AddStudents(connection, connection_string);
 			add_students.ShowDialog();
 			cb_CurrentGroup_SelectedIndexChanged(sender, e);
 		}
 		private void btn_AddGroups_Click(object sender, EventArgs e)
 		{
-			CloseConnection();
 			AddGroups add_groups = new AddGroups(connection, connection_string);
 			add_groups.ShowDialog();
 			LoadTablesToComboBox();
@@ -151,7 +141,6 @@ namespace Academy
 
 		private void btn_AddShedules_Click(object sender, EventArgs e)
 		{
-			CloseConnection();
 			AddShedules add_shedules = new AddShedules(connection, connection_string);
 			add_shedules.ShowDialog();
 		}
@@ -170,7 +159,6 @@ namespace Academy
 			string first_name = dgv_SudentsList.Rows[index].Cells[1].Value.ToString();
 			string middle_name = dgv_SudentsList.Rows[index].Cells[2].Value.ToString();
 
-			CloseConnection();
 			StudentInfo stud_info = new StudentInfo(connection, connection_string, last_name, first_name, middle_name);
 			stud_info.ShowDialog();
 			cb_CurrentGroup_SelectedIndexChanged(sender, e);
