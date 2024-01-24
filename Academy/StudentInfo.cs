@@ -90,9 +90,10 @@ namespace Academy
 
 			while (rdr.Read())
 				data_photo = (byte[])rdr[0];
-				MemoryStream ms = new MemoryStream(data_photo);
-				Image img = Image.FromStream(ms);
-				pb_Photo.Image = img;
+			MemoryStream ms = new MemoryStream(data_photo);
+			Image img = Image.FromStream(ms);
+			pb_Photo.Image = img;
+			ms.Close();
 
 			rdr.Close();
 			connection.Close();
