@@ -36,7 +36,7 @@ namespace Academy
 			dtp_NewBirthDate.Format = DateTimePickerFormat.Custom;
 			dtp_NewBirthDate.CustomFormat = "yyy-MM-dd";
 			pb_Photo.Image = Properties.Resources._default;
-			ofd_NewPhoto.Filter = "Image file (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png|All files (*.*)|*.*";
+			ofd_NewPhoto.Filter = "Image file (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png";
 
 			tb_NewFirstName.Visible = false;
 			tb_NewLastName.Visible = false;
