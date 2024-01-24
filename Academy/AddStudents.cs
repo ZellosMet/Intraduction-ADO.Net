@@ -24,8 +24,10 @@ namespace Academy
 		SqlCommand cmd;
 		SqlDataReader rdr;
 		DataTable table;
-		string photo_path = "C:\\ProgramDatа\\LocalProject\\C#\\Intraduction-ADO.Net\\Academy\\photo\\not_photo.png";
+		//string photo_path = "C:\\ProgramDatа\\LocalProject\\C#\\Intraduction-ADO.Net\\Academy\\photo\\not_photo.png";
+		string photo_path = "C:\\Users\\Zello\\OneDrive\\Рабочий стол\\Учёба\\ДЗ\\C#\\ADO\\Intraduction to ADO\\Academy\\photo\\not_photo.png";
 		byte[] data_photo = null;
+		bool set_photo = false;
 		public AddStudents(SqlConnection connection, string connection_string)
 		{
 			InitializeComponent();
@@ -36,7 +38,7 @@ namespace Academy
 			cb_Groups.DropDownStyle = ComboBoxStyle.DropDownList;
 			dtp_BirthDate.Format = DateTimePickerFormat.Custom;
 			dtp_BirthDate.CustomFormat = "yyy-MM-dd";
-			ofd_AddPhoto.Filter = "Image file (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png|All files (*.*)|*.*";
+			ofd_AddPhoto.Filter = "Image file (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png";
 			pb_AddPhoto.Image = Properties.Resources._default;
 			LoadData();
 		}
@@ -70,7 +72,8 @@ namespace Academy
 			id_group = Convert.ToInt32(cmd.ExecuteScalar());
 			connection.Close();
 
-			ConvertImageToData();
+			if(!set_photo)
+				ConvertImageToData();
 
 			using (SqlConnection connection = new SqlConnection(connection_string))
 			{
@@ -99,6 +102,7 @@ namespace Academy
 				{
 					rdr?.Close();
 					connection?.Close();
+					set_photo = false;
 				}
 			}
 			LoadData();
@@ -137,6 +141,7 @@ namespace Academy
 				photo_path = ofd_AddPhoto.FileName;
 			ConvertImageToData();
 			pb_AddPhoto.Image = Image.FromFile(photo_path);
+			set_photo = true;
 		}
 
 		void ConvertImageToData()
