@@ -22,6 +22,7 @@ namespace Academy
 		int id_group;
 		List<CheckBox> combobox_week_list = new List<CheckBox>();
 		List<CheckBox> combobox_new_week_list = new List<CheckBox>();
+		string[] week_day = new string[] {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"};
 		public AddGroups(SqlConnection connection, string connection_string)
 		{
 			InitializeComponent();
@@ -180,7 +181,21 @@ namespace Academy
 			while (rdr.Read())
 			{
 				DataRow row = table.NewRow();
-				for (int i = 0; i < rdr.FieldCount; i++) row[i] = rdr[i];
+				for (int i = 0; i < rdr.FieldCount; i++)
+				{
+					if (i == 5)
+					{
+						string weekday_constructor = string.Empty;
+						string results = Convert.ToString(Convert.ToString(Convert.ToInt32(Convert.ToString(rdr[i]), 10), 2));
+						for (int n = results.Length - 1, m = week_day.Length-1; n >= 0; n--, m--)
+						{
+							if (results[n] == '1')
+								weekday_constructor = $" {week_day[m]} {weekday_constructor}";
+						}
+						row[i] = weekday_constructor;
+					}
+					else row[i] = rdr[i];				
+				}
 				table.Rows.Add(row);
 			}
 			dgv_GroupList.DataSource = table;

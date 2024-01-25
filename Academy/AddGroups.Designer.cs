@@ -132,7 +132,7 @@
 			this.dgv_GroupList.RowHeadersWidth = 51;
 			this.dgv_GroupList.RowTemplate.Height = 24;
 			this.dgv_GroupList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgv_GroupList.Size = new System.Drawing.Size(859, 265);
+			this.dgv_GroupList.Size = new System.Drawing.Size(898, 265);
 			this.dgv_GroupList.TabIndex = 10;
 			this.dgv_GroupList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_GroupList_CellClick);
 			// 
@@ -394,7 +394,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(890, 612);
+			this.ClientSize = new System.Drawing.Size(927, 612);
 			this.Controls.Add(this.ck_NewSu);
 			this.Controls.Add(this.ck_NewSa);
 			this.Controls.Add(this.ck_NewFr);
