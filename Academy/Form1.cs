@@ -24,8 +24,8 @@ namespace Academy
 		{
 			InitializeComponent();
 			cb_CurrentGroup.DropDownStyle = ComboBoxStyle.DropDownList;
-			connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
-			//connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
+			//connection_string = ConfigurationManager.ConnectionStrings["Academy_PC"].ConnectionString;
+			connection_string = ConfigurationManager.ConnectionStrings["Academy_NB"].ConnectionString;
 			connection = new SqlConnection(connection_string);
 			rb_ForGroup.Checked = true;
 			chkb_Archive.Checked = false;
