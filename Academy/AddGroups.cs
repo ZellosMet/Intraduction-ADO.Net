@@ -397,6 +397,11 @@ namespace Academy
 						ck_We.Enabled = false;
 						ck_Th.Enabled = false;
 						ck_Fr.Enabled = false;
+						ck_Mo.Checked = false;
+						ck_Tu.Checked = false;
+						ck_We.Checked = false;
+						ck_Th.Checked = false;
+						ck_Fr.Checked = false;
 						tb_GroupName.Text = data_code[cb_LessonForm.Text];
 					} 
 				break;
@@ -436,6 +441,11 @@ namespace Academy
 						ck_NewWe.Enabled = false;
 						ck_NewTh.Enabled = false;
 						ck_NewFr.Enabled = false;
+						ck_NewMo.Checked = false;
+						ck_NewTu.Checked = false;
+						ck_NewWe.Checked = false;
+						ck_NewTh.Checked = false;
+						ck_NewFr.Checked = false;
 						tb_NewGroupName.Text = data_code[cb_NewLessonForm.Text];
 					}
 				break;
