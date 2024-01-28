@@ -62,6 +62,7 @@
 			this.ck_NewWe = new System.Windows.Forms.CheckBox();
 			this.ck_NewTu = new System.Windows.Forms.CheckBox();
 			this.ck_NewMo = new System.Windows.Forms.CheckBox();
+			this.btn_Delete = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_GroupList)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -403,11 +404,22 @@
 			this.ck_NewMo.Text = "Пн";
 			this.ck_NewMo.UseVisualStyleBackColor = true;
 			// 
+			// btn_Delete
+			// 
+			this.btn_Delete.Location = new System.Drawing.Point(507, 280);
+			this.btn_Delete.Name = "btn_Delete";
+			this.btn_Delete.Size = new System.Drawing.Size(131, 32);
+			this.btn_Delete.TabIndex = 38;
+			this.btn_Delete.Text = "Удалить группу";
+			this.btn_Delete.UseVisualStyleBackColor = true;
+			this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
+			// 
 			// AddGroups
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(927, 612);
+			this.Controls.Add(this.btn_Delete);
 			this.Controls.Add(this.ck_NewSu);
 			this.Controls.Add(this.ck_NewSa);
 			this.Controls.Add(this.ck_NewFr);
@@ -486,5 +498,6 @@
 		private System.Windows.Forms.CheckBox ck_NewWe;
 		private System.Windows.Forms.CheckBox ck_NewTu;
 		private System.Windows.Forms.CheckBox ck_NewMo;
+		private System.Windows.Forms.Button btn_Delete;
 	}
 }

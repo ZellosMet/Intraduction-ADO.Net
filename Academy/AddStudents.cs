@@ -12,8 +12,6 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Academy
 {

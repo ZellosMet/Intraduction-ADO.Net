@@ -47,6 +47,7 @@ namespace Academy
 			btn_UpdateGroup.Enabled = false;
 			btn_Save.Visible = false;
 			btn_Cancel.Visible = false;
+			btn_Delete.Visible = false;
 			tb_NewGroupName.Visible = false;
 			cb_NewDirection.Visible = false;
 			chkb_Archive.Visible = false;
@@ -273,6 +274,7 @@ namespace Academy
 			btn_UpdateGroup.Enabled = true;
 			btn_Save.Visible = true;
 			btn_Cancel.Visible = true;
+			btn_Delete.Visible = true;
 			tb_NewGroupName.Visible = true;
 			cb_NewDirection.Visible = true;
 			chkb_Archive.Visible = true;
@@ -291,6 +293,7 @@ namespace Academy
 			btn_UpdateGroup.Enabled = false;
 			btn_Save.Visible = false;
 			btn_Cancel.Visible = false;
+			btn_Delete.Visible = false;
 			tb_NewGroupName.Visible = false;
 			cb_NewDirection.Visible = false;
 			chkb_Archive.Visible = false;
@@ -362,7 +365,7 @@ namespace Academy
 				}
 				catch (Exception exc)
 				{
-					MessageBox.Show($"Не удалось изменить студента. Ошибка: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show($"Не удалось изменить группу. Ошибка: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				finally
 				{
@@ -555,6 +558,27 @@ namespace Academy
 				else
 					if (tb_NewGroupName.Text.Length > 3) tb_NewGroupName.Text = tb_NewGroupName.Text.Remove(0, 1);
 			}
+		}
+		private void btn_Delete_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string command = $@"DELETE FROM Groups WHERE Groups.group_id = {id_group}";
+				cmd = new SqlCommand(command, connection);
+				connection.Open();
+				cmd.ExecuteNonQuery();
+				l_AddResult.Text = "Группа успешно удалена!";
+			}
+			catch (Exception exc)
+			{
+				MessageBox.Show($"Не удалось удалить группу. Ошибка: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			finally
+			{
+				rdr?.Close();
+				connection?.Close();
+			}
+			LoadData();
 		}
 	}
 }
