@@ -23,6 +23,10 @@ namespace Academy
 		List<CheckBox> combobox_week_list = new List<CheckBox>();
 		List<CheckBox> combobox_new_week_list = new List<CheckBox>();
 		string[] week_day = new string[] {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"};
+		List<string> stationary = new List<string>();
+		List<string> semi_stationary = new List<string>();
+		List<string> yearly = new List<string>();
+		Dictionary<string, string> data_code = new Dictionary<string, string>();
 		public AddGroups(SqlConnection connection, string connection_string)
 		{
 			InitializeComponent();
@@ -59,6 +63,14 @@ namespace Academy
 			combobox_week_list.AddRange(new[] { ck_Mo, ck_Tu, ck_We, ck_Th, ck_Fr, ck_Sa, ck_Su});
 			combobox_new_week_list.AddRange(new[] { ck_NewMo, ck_NewTu, ck_NewWe, ck_NewTh, ck_NewFr, ck_NewSa, ck_NewSu });
 
+			LoadFormDataToList(stationary, "Стационарные курсы");
+			LoadFormDataToList(semi_stationary, "Полустационарные курсы");
+			LoadFormDataToList(yearly, "Годичные курсы");
+
+			LoadCodsToDictionary("Directions", "direction_name", "code_direction");
+			LoadCodsToDictionary("LessonsForms", "form_name", "code_form");
+			LoadCodsToDictionary("LessonTimes", "time_name", "code_time");
+
 			LoadData();
 		}
 
@@ -94,7 +106,7 @@ namespace Academy
 				ncb.Items.Add(rdr[0]);
 			}
 			rdr.Close();
-			connection.Close();
+			connection.Close();			
 		}
 		private void btn_AddGroup_Click(object sender, EventArgs e)
 		{
@@ -106,7 +118,6 @@ namespace Academy
 			direction_name = cb_Direction.SelectedItem.ToString();
 			form_name = cb_LessonForm.SelectedItem.ToString();
 			time_name = cb_LessonTime.SelectedItem.ToString();
-
 
 			command = $@"SELECT direction_id FROM Directions WHERE Directions.direction_name LIKE '{direction_name}'";
 			cmd = new SqlCommand(command, connection);
@@ -157,7 +168,6 @@ namespace Academy
 			}
 			LoadData();
 		}
-
 		void LoadData()
 		{
 			string commandLine = $@"
@@ -199,15 +209,47 @@ namespace Academy
 				table.Rows.Add(row);
 			}
 			dgv_GroupList.DataSource = table;
+			rdr.Close();
+			connection.Close();			
+		}
+		void LoadCodsToDictionary(string table, string name_column, string code_column)
+		{
+			string commandLine = $@"SELECT {name_column}, {code_column}
+									FROM {table}";
+			cmd = new SqlCommand(commandLine, connection);
+			connection.Open();
+			rdr = cmd.ExecuteReader();
+
+			while (rdr.Read())
+				data_code.Add(rdr[0].ToString(), rdr[1].ToString().Trim());
+
+			rdr.Close();
+			connection.Close();
+		}
+		void LoadFormDataToList(List<string> list, string direction_name)
+		{
+			string commandLine = $@"SELECT direction_name 
+							FROM Directions, LessonsFormsDirections, LessonsForms 
+							WHERE Directions.direction_id = LessonsFormsDirections.direction_id
+							AND LessonsFormsDirections.form_id = LessonsForms.form_id
+							AND LessonsForms.form_name = '{direction_name}'";
+			cmd = new SqlCommand(commandLine, connection);
+			connection.Open();
+			rdr = cmd.ExecuteReader();
+
+			while (rdr.Read())
+				list.Add(rdr[0].ToString());
+
+			rdr.Close();
 			connection.Close();
 		}
 		private void dgv_GroupList_CellClick(object sender,DataGridViewCellEventArgs e)
 		{
 			btn_UpdateGroup.Enabled = true;
-			tb_NewGroupName.Text = dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[0].Value.ToString().Trim();
-			cb_NewDirection.SelectedIndex = cb_NewDirection.FindString(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[1].Value.ToString());
 			cb_NewLessonForm.SelectedIndex = cb_NewLessonForm.FindString(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[3].Value.ToString());
+			cb_NewDirection.SelectedIndex = cb_NewDirection.FindString(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[1].Value.ToString());
 			cb_NewLessonTime.SelectedIndex = cb_NewLessonTime.FindString(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[4].Value.ToString());
+			tb_NewGroupName.Text = dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[0].Value.ToString().Trim();
 			if(!(dgv_GroupList.Rows[dgv_GroupList.CurrentCell.RowIndex].Cells[2].Value.ToString() == "Не в архиве"))
 				chkb_Archive.Checked = true;
 			else
@@ -263,7 +305,6 @@ namespace Academy
 			ck_NewSu.Visible = false;
 			l_AddResult.Text = "";
 		}
-
 		private void btn_Save_Click(object sender, EventArgs e)
 		{
 			string command, group, direction, form_name, time_name;
@@ -329,6 +370,180 @@ namespace Academy
 					connection?.Close();
 				}
 				LoadData();
+			}
+		}
+
+		private void cb_LessonForm_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			cb_Direction.Items.Clear();
+			switch (cb_LessonForm.Text)
+			{ 
+				case "Стационарные курсы":
+					{ 
+						cb_Direction.Items.AddRange(stationary.ToArray());
+						ck_Mo.Enabled = true;
+						ck_Tu.Enabled = true;
+						ck_We.Enabled = true;
+						ck_Th.Enabled = true;
+						ck_Fr.Enabled = true;
+						tb_GroupName.Text = data_code[cb_LessonForm.Text];
+					} 
+				break;
+				case "Полустационарные курсы":
+					{ 
+						cb_Direction.Items.AddRange(semi_stationary.ToArray());
+						ck_Mo.Enabled = false;
+						ck_Tu.Enabled = false;
+						ck_We.Enabled = false;
+						ck_Th.Enabled = false;
+						ck_Fr.Enabled = false;
+						tb_GroupName.Text = data_code[cb_LessonForm.Text];
+					} 
+				break;
+				case "Годичные курсы":
+					{ 
+						cb_Direction.Items.AddRange(yearly.ToArray());
+						ck_Mo.Enabled = true;
+						ck_Tu.Enabled = true;
+						ck_We.Enabled = true;
+						ck_Th.Enabled = true;
+						ck_Fr.Enabled = true;
+					}
+				break;
+			}
+		}
+		private void cb_NewLessonForm_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			cb_NewDirection.Items.Clear();
+			switch (cb_NewLessonForm.Text)
+			{
+				case "Стационарные курсы":
+					{ 
+						cb_NewDirection.Items.AddRange(stationary.ToArray());
+						ck_NewMo.Enabled = true;
+						ck_NewTu.Enabled = true;
+						ck_NewWe.Enabled = true;
+						ck_NewTh.Enabled = true;
+						ck_NewFr.Enabled = true;
+						tb_NewGroupName.Text = data_code[cb_NewLessonForm.Text];
+					}
+				break;
+				case "Полустационарные курсы":
+					{ 
+						cb_NewDirection.Items.AddRange(semi_stationary.ToArray());
+						ck_NewMo.Enabled = false;
+						ck_NewTu.Enabled = false;
+						ck_NewWe.Enabled = false;
+						ck_NewTh.Enabled = false;
+						ck_NewFr.Enabled = false;
+						tb_NewGroupName.Text = data_code[cb_NewLessonForm.Text];
+					}
+				break;
+				case "Годичные курсы":
+					{ 
+						cb_NewDirection.Items.AddRange(yearly.ToArray());
+						ck_NewMo.Enabled = true;
+						ck_NewTu.Enabled = true;
+						ck_NewWe.Enabled = true;
+						ck_NewTh.Enabled = true;
+						ck_NewFr.Enabled = true;
+					}
+				break;
+			}
+		}
+		private void cb_Direction_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (!(cb_LessonForm.Text == "Годичные курсы"))
+			{
+				if (tb_GroupName.Text.Length > 1) tb_GroupName.Text = tb_GroupName.Text.Remove(1);
+				tb_GroupName.Text += $"{data_code[cb_Direction.Text]}_";
+			}
+			else
+				tb_GroupName.Text = $"{data_code[cb_Direction.Text]}_";
+		}
+
+		private void cb_LessonTime_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (cb_LessonForm.Text == "Стационарные курсы")
+			{ 
+				if(tb_GroupName.Text.Length > 3) tb_GroupName.Text = tb_GroupName.Text.Remove(0, 1);
+				tb_GroupName.Text = $"{data_code[cb_LessonTime.Text]}{tb_GroupName.Text}";
+			}
+		}
+		private void ck_Sa_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (cb_LessonForm.Text == "Полустационарные курсы")
+			{
+				if(ck_Su.Checked) ck_Su.Checked = false;
+				if (ck_Sa.Checked)
+				{ 
+					if(tb_GroupName.Text.Length > 3) tb_GroupName.Text = tb_GroupName.Text.Remove(0, 1);
+					tb_GroupName.Text = $"S{tb_GroupName.Text}";
+				}
+				else 
+					if (tb_GroupName.Text.Length > 3) tb_GroupName.Text = tb_GroupName.Text.Remove(0, 1);
+			}
+		}
+		private void ck_Su_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (cb_LessonForm.Text == "Полустационарные курсы")
+			{
+				if (ck_Sa.Checked) ck_Sa.Checked = false;
+				if (ck_Su.Checked)
+				{
+					if (tb_GroupName.Text.Length > 3) tb_GroupName.Text = tb_GroupName.Text.Remove(0, 1);
+					tb_GroupName.Text = $"V{tb_GroupName.Text}";
+				}
+				else
+					if (tb_GroupName.Text.Length > 3) tb_GroupName.Text = tb_GroupName.Text.Remove(0, 1);
+			}
+		}
+		private void cb_NewDirection_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (!(cb_NewLessonForm.Text == "Годичные курсы"))
+			{
+				if (tb_NewGroupName.Text.Length > 1) tb_NewGroupName.Text = tb_NewGroupName.Text.Remove(1);
+				tb_NewGroupName.Text += $"{data_code[cb_NewDirection.Text]}_";
+			}
+			else
+				tb_NewGroupName.Text = $"{data_code[cb_NewDirection.Text]}_";
+		}
+		private void cb_NewLessonTime_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (cb_NewLessonForm.Text == "Стационарные курсы")
+			{
+				if (tb_NewGroupName.Text.Length > 3) tb_NewGroupName.Text = tb_NewGroupName.Text.Remove(0, 1);
+				tb_NewGroupName.Text = $"{data_code[cb_NewLessonTime.Text]}{tb_NewGroupName.Text}";
+			}
+		}
+
+		private void ck_NewSa_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (cb_NewLessonForm.Text == "Полустационарные курсы")
+			{
+				if (ck_NewSu.Checked) ck_NewSu.Checked = false;
+				if (ck_NewSa.Checked)
+				{
+					if (tb_NewGroupName.Text.Length > 3) tb_NewGroupName.Text = tb_NewGroupName.Text.Remove(0, 1);
+					tb_NewGroupName.Text = $"S{tb_NewGroupName.Text}";
+				}
+				else
+					if (tb_NewGroupName.Text.Length > 3) tb_NewGroupName.Text = tb_NewGroupName.Text.Remove(0, 1);
+			}
+		}
+
+		private void ck_NewSu_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (cb_NewLessonForm.Text == "Полустационарные курсы")
+			{
+				if (ck_NewSa.Checked) ck_NewSa.Checked = false;
+				if (ck_NewSu.Checked)
+				{
+					if (tb_NewGroupName.Text.Length > 3) tb_NewGroupName.Text = tb_NewGroupName.Text.Remove(0, 1);
+					tb_NewGroupName.Text = $"V{tb_NewGroupName.Text}";
+				}
+				else
+					if (tb_NewGroupName.Text.Length > 3) tb_NewGroupName.Text = tb_NewGroupName.Text.Remove(0, 1);
 			}
 		}
 	}

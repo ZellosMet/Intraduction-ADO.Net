@@ -68,7 +68,7 @@
 			// L_GroupName
 			// 
 			this.L_GroupName.AutoSize = true;
-			this.L_GroupName.Location = new System.Drawing.Point(16, 13);
+			this.L_GroupName.Location = new System.Drawing.Point(16, 153);
 			this.L_GroupName.Name = "L_GroupName";
 			this.L_GroupName.Size = new System.Drawing.Size(123, 16);
 			this.L_GroupName.TabIndex = 0;
@@ -78,7 +78,7 @@
 			// 
 			this.tb_GroupName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-			this.tb_GroupName.Location = new System.Drawing.Point(16, 32);
+			this.tb_GroupName.Location = new System.Drawing.Point(16, 172);
 			this.tb_GroupName.MaxLength = 10;
 			this.tb_GroupName.Name = "tb_GroupName";
 			this.tb_GroupName.Size = new System.Drawing.Size(221, 22);
@@ -113,6 +113,7 @@
 			this.cb_Direction.Name = "cb_Direction";
 			this.cb_Direction.Size = new System.Drawing.Size(221, 24);
 			this.cb_Direction.TabIndex = 8;
+			this.cb_Direction.SelectedIndexChanged += new System.EventHandler(this.cb_Direction_SelectedIndexChanged);
 			// 
 			// l_DirectionName
 			// 
@@ -125,6 +126,9 @@
 			// 
 			// dgv_GroupList
 			// 
+			this.dgv_GroupList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgv_GroupList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_GroupList.Location = new System.Drawing.Point(16, 335);
 			this.dgv_GroupList.Name = "dgv_GroupList";
@@ -138,7 +142,7 @@
 			// 
 			// btn_UpdateGroup
 			// 
-			this.btn_UpdateGroup.Location = new System.Drawing.Point(732, 25);
+			this.btn_UpdateGroup.Location = new System.Drawing.Point(732, 30);
 			this.btn_UpdateGroup.Name = "btn_UpdateGroup";
 			this.btn_UpdateGroup.Size = new System.Drawing.Size(143, 31);
 			this.btn_UpdateGroup.TabIndex = 11;
@@ -148,7 +152,7 @@
 			// 
 			// tb_NewGroupName
 			// 
-			this.tb_NewGroupName.Location = new System.Drawing.Point(507, 32);
+			this.tb_NewGroupName.Location = new System.Drawing.Point(507, 172);
 			this.tb_NewGroupName.Name = "tb_NewGroupName";
 			this.tb_NewGroupName.Size = new System.Drawing.Size(206, 22);
 			this.tb_NewGroupName.TabIndex = 12;
@@ -160,6 +164,7 @@
 			this.cb_NewDirection.Name = "cb_NewDirection";
 			this.cb_NewDirection.Size = new System.Drawing.Size(206, 24);
 			this.cb_NewDirection.TabIndex = 13;
+			this.cb_NewDirection.SelectedIndexChanged += new System.EventHandler(this.cb_NewDirection_SelectedIndexChanged);
 			// 
 			// chkb_Archive
 			// 
@@ -173,7 +178,7 @@
 			// 
 			// btn_Save
 			// 
-			this.btn_Save.Location = new System.Drawing.Point(732, 62);
+			this.btn_Save.Location = new System.Drawing.Point(732, 67);
 			this.btn_Save.Name = "btn_Save";
 			this.btn_Save.Size = new System.Drawing.Size(143, 31);
 			this.btn_Save.TabIndex = 15;
@@ -183,7 +188,7 @@
 			// 
 			// btn_Cancel
 			// 
-			this.btn_Cancel.Location = new System.Drawing.Point(732, 99);
+			this.btn_Cancel.Location = new System.Drawing.Point(732, 104);
 			this.btn_Cancel.Name = "btn_Cancel";
 			this.btn_Cancel.Size = new System.Drawing.Size(143, 31);
 			this.btn_Cancel.TabIndex = 16;
@@ -194,7 +199,7 @@
 			// l_LessonForm
 			// 
 			this.l_LessonForm.AutoSize = true;
-			this.l_LessonForm.Location = new System.Drawing.Point(16, 114);
+			this.l_LessonForm.Location = new System.Drawing.Point(16, 12);
 			this.l_LessonForm.Name = "l_LessonForm";
 			this.l_LessonForm.Size = new System.Drawing.Size(117, 16);
 			this.l_LessonForm.TabIndex = 17;
@@ -203,7 +208,7 @@
 			// l_LessonTime
 			// 
 			this.l_LessonTime.AutoSize = true;
-			this.l_LessonTime.Location = new System.Drawing.Point(16, 166);
+			this.l_LessonTime.Location = new System.Drawing.Point(16, 104);
 			this.l_LessonTime.Name = "l_LessonTime";
 			this.l_LessonTime.Size = new System.Drawing.Size(114, 16);
 			this.l_LessonTime.TabIndex = 18;
@@ -221,18 +226,20 @@
 			// cb_LessonForm
 			// 
 			this.cb_LessonForm.FormattingEnabled = true;
-			this.cb_LessonForm.Location = new System.Drawing.Point(16, 134);
+			this.cb_LessonForm.Location = new System.Drawing.Point(16, 32);
 			this.cb_LessonForm.Name = "cb_LessonForm";
 			this.cb_LessonForm.Size = new System.Drawing.Size(221, 24);
 			this.cb_LessonForm.TabIndex = 20;
+			this.cb_LessonForm.SelectedIndexChanged += new System.EventHandler(this.cb_LessonForm_SelectedIndexChanged);
 			// 
 			// cb_LessonTime
 			// 
 			this.cb_LessonTime.FormattingEnabled = true;
-			this.cb_LessonTime.Location = new System.Drawing.Point(16, 184);
+			this.cb_LessonTime.Location = new System.Drawing.Point(16, 122);
 			this.cb_LessonTime.Name = "cb_LessonTime";
 			this.cb_LessonTime.Size = new System.Drawing.Size(221, 24);
 			this.cb_LessonTime.TabIndex = 21;
+			this.cb_LessonTime.SelectedIndexChanged += new System.EventHandler(this.cb_LessonTime_SelectedIndexChanged);
 			// 
 			// ck_Mo
 			// 
@@ -293,6 +300,7 @@
 			this.ck_Sa.TabIndex = 27;
 			this.ck_Sa.Text = "Сб";
 			this.ck_Sa.UseVisualStyleBackColor = true;
+			this.ck_Sa.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ck_Sa_MouseClick);
 			// 
 			// ck_Su
 			// 
@@ -303,22 +311,25 @@
 			this.ck_Su.TabIndex = 28;
 			this.ck_Su.Text = "Вс";
 			this.ck_Su.UseVisualStyleBackColor = true;
+			this.ck_Su.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ck_Su_MouseClick);
 			// 
 			// cb_NewLessonForm
 			// 
 			this.cb_NewLessonForm.FormattingEnabled = true;
-			this.cb_NewLessonForm.Location = new System.Drawing.Point(507, 134);
+			this.cb_NewLessonForm.Location = new System.Drawing.Point(507, 32);
 			this.cb_NewLessonForm.Name = "cb_NewLessonForm";
 			this.cb_NewLessonForm.Size = new System.Drawing.Size(206, 24);
 			this.cb_NewLessonForm.TabIndex = 29;
+			this.cb_NewLessonForm.SelectedIndexChanged += new System.EventHandler(this.cb_NewLessonForm_SelectedIndexChanged);
 			// 
 			// cb_NewLessonTime
 			// 
 			this.cb_NewLessonTime.FormattingEnabled = true;
-			this.cb_NewLessonTime.Location = new System.Drawing.Point(507, 184);
+			this.cb_NewLessonTime.Location = new System.Drawing.Point(507, 122);
 			this.cb_NewLessonTime.Name = "cb_NewLessonTime";
 			this.cb_NewLessonTime.Size = new System.Drawing.Size(206, 24);
 			this.cb_NewLessonTime.TabIndex = 30;
+			this.cb_NewLessonTime.SelectedIndexChanged += new System.EventHandler(this.cb_NewLessonTime_SelectedIndexChanged);
 			// 
 			// ck_NewSu
 			// 
@@ -329,6 +340,7 @@
 			this.ck_NewSu.TabIndex = 37;
 			this.ck_NewSu.Text = "Вс";
 			this.ck_NewSu.UseVisualStyleBackColor = true;
+			this.ck_NewSu.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ck_NewSu_MouseClick);
 			// 
 			// ck_NewSa
 			// 
@@ -339,6 +351,7 @@
 			this.ck_NewSa.TabIndex = 36;
 			this.ck_NewSa.Text = "Сб";
 			this.ck_NewSa.UseVisualStyleBackColor = true;
+			this.ck_NewSa.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ck_NewSa_MouseClick);
 			// 
 			// ck_NewFr
 			// 
