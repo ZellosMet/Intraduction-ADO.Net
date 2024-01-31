@@ -470,6 +470,7 @@ namespace Academy
 			{
 				if (tb_GroupName.Text.Length > 1) tb_GroupName.Text = tb_GroupName.Text.Remove(1);
 				tb_GroupName.Text += $"{data_code[cb_Direction.Text]}_";
+				Console.WriteLine(tb_GroupName.Text);
 			}
 			else
 				tb_GroupName.Text = $"{data_code[cb_Direction.Text]}_";
