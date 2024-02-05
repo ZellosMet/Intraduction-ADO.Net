@@ -113,8 +113,8 @@ namespace Academy
 		{
 			string command, group_name, direction_name, form_name, time_name;
 			int id_direction, id_form, id_time;
-			if (tb_GroupName.Text.Length == 0)
-			{ MessageBox.Show("Не заполнены обязательные поля 'Дисциплина'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+			if (cb_LessonForm.Text.Length == 0 || cb_Direction.Text.Length == 0 || cb_LessonTime.Text.Length == 0)
+			{ MessageBox.Show("Не заполнены обязательные поля: 'Форма обучения', 'Направление', 'Время обучения'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 			group_name = tb_GroupName.Text;
 			direction_name = cb_Direction.SelectedItem.ToString();
 			form_name = cb_LessonForm.SelectedItem.ToString();
@@ -313,8 +313,8 @@ namespace Academy
 			string command, group, direction, form_name, time_name;
 			int id_direction, id_form, id_time, days;
 			bool archiv;
-			if (tb_NewGroupName.Text.Length == 0)
-			{ MessageBox.Show("Не заполнены обязательные поля 'Имя группы'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+			if (cb_LessonForm.Text.Length == 0 || cb_Direction.Text.Length == 0 || cb_LessonTime.Text.Length == 0)
+			{ MessageBox.Show("Не заполнены обязательные поля: 'Форма обучения', 'Направление', 'Время обучения'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
 			group = tb_NewGroupName.Text.Trim();
 			form_name = cb_NewLessonForm.SelectedItem.ToString();
