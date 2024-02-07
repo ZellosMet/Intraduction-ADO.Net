@@ -572,7 +572,7 @@ namespace Academy
 			}
 			catch (Exception exc)
 			{
-				MessageBox.Show($"Не удалось удалить группу. Ошибка: {exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show($"Нельзя удалить группу пока в группе присутствуют студенты!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			finally
 			{
